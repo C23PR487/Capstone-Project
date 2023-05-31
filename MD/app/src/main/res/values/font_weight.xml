@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="regular">400</integer>
+    <integer name="semi_bold">600</integer>
+    <integer name="medium">500</integer>
+</resources>
