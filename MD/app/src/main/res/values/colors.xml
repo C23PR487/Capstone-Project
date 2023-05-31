@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary_black_85_alpha">#AA2C2C2C</color>
+    <color name="primary_black">#FF2C2C2C</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primary_white">#FFFFFFFF</color>
+    <color name="primary_red">#FF990012</color>
+    <color name="primary_red_ripple">#29990012</color>
+    <color name="primary_gray">#FFA6A6A6</color>
+    <color name="secondary_light_red">#FFFCF6F6</color>
+    <color name="primary_light_red">#FFC53143</color>
+    <color name="primary_light_red_ripple">#29C53143</color>
 </resources>
