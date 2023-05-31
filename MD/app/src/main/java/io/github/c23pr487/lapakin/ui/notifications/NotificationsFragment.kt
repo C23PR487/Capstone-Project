@@ -1,4 +1,4 @@
-package io.github.c23pr487.lapakin.ui.home.ui.notifications
+package io.github.c23pr487.lapakin.ui.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater

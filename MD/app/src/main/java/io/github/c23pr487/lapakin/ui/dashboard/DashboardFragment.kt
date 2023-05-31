@@ -1,5 +1,6 @@
-package io.github.c23pr487.lapakin.ui.home.ui.dashboard
+package io.github.c23pr487.lapakin.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import io.github.c23pr487.lapakin.databinding.FragmentDashboardBinding
+import io.github.c23pr487.lapakin.ui.auth.AuthenticationActivity
 
 class DashboardFragment : Fragment() {
 
@@ -33,6 +37,15 @@ class DashboardFragment : Fragment() {
             textView.text = it
         }
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Firebase.auth.signOut()
+        requireActivity().startActivity(
+            Intent(requireActivity(), AuthenticationActivity::class.java)
+        )
+        requireActivity().finish()
     }
 
     override fun onDestroyView() {
