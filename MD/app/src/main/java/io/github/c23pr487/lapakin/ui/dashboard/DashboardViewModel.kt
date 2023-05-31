@@ -1,4 +1,4 @@
-package io.github.c23pr487.lapakin.ui.home.ui.dashboard
+package io.github.c23pr487.lapakin.ui.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

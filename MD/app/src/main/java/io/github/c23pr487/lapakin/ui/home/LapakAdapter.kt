@@ -1,4 +1,4 @@
-package io.github.c23pr487.lapakin.ui.home.ui.home
+package io.github.c23pr487.lapakin.ui.home
 
 import android.view.LayoutInflater
 import android.view.View

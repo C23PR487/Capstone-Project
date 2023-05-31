@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "991355340101",
+    "project_id": "lapakin-d5982",
+    "storage_bucket": "lapakin-d5982.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991355340101:android:bf2ea36db7979f8635ea2c",
+        "android_client_info": {
+          "package_name": "io.github.c23pr487.lapakin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991355340101-74esvjvt9nu4j9sgq0k0qeadr8o4pkur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.c23pr487.lapakin",
+            "certificate_hash": "a36b5ff96404828897c9ef7d98a3f316b0dfb210"
+          }
+        },
+        {
+          "client_id": "991355340101-4k00fh3a3vvvko3u1n9fmmjmhtiaeen6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB57aZwULzTMku7itvQPlSz6WEqTyd4zYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991355340101-4k00fh3a3vvvko3u1n9fmmjmhtiaeen6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

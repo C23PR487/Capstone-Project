@@ -10,4 +10,5 @@
     <color name="secondary_light_red">#FFFCF6F6</color>
     <color name="primary_light_red">#FFC53143</color>
     <color name="primary_light_red_ripple">#29C53143</color>
+    <color name="primary_dark_blue">#FF5A84D8</color>
 </resources>
