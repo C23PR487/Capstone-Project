@@ -1,24 +1,26 @@
 WITH not_important AS (
     SELECT 
         id, 
-        "nama toko",
-        Harga,
-        "Luas Tanah",
-        "Luas Bangunan",
-        kota
+        nama_toko,
+        harga,
+        luas_tanah,
+        luas_bangunan,
+        kota,
+        label
     FROM lapakin
-    WHERE kota = 'Jakarta Selatan'
+    WHERE label = 'usaha_baju'
     order by harga
 ), important AS (
     SELECT 
-        id,
-        "nama toko",
-        Harga,
-        "Luas Tanah",
-        "Luas Bangunan",
-        kota
+        id, 
+        nama_toko,
+        harga,
+        luas_tanah,
+        luas_bangunan,
+        kota,
+        label
     FROM lapakin
-    WHERE kota = 'Jakarta Selatan' AND harga < 1000000
+    WHERE kota = 'Jakarta Selatan' AND label = 'usaha_baju'
     order by harga
 )
 select DISTINCT * from (
