@@ -54,6 +54,10 @@
         <item name="fontFamily">@font/sriracha_regular</item>
     </style>
 
+    <style name="Theme.LapakIn.Bold" parent="Base.Theme.LapakIn">
+        <item name="fontFamily">@font/rubik_bold</item>
+    </style>
+
     <style name="FilterButtonTextAppearance" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/secondary_light_red</item>
@@ -83,6 +87,26 @@
         <item name="android:textSize">10sp</item>
         <item name="fontFamily">@font/rubik_regular</item>
         <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textColor">@color/primary_gray</item>
+    </style>
+    
+    <style name="ComponentTitleTextAppearance" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="fontFamily">@font/rubik_bold</item>
+    </style>
+
+    <style name="ComponentBodyTextAppearance" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ComponentBodyTextAppearance.SellerInfo">
+        <item name="android:textSize">10sp</item>
+    </style>
+    
+    <style name="ComponentBodyTextAppearance.ShowMore">
         <item name="android:textColor">@color/primary_gray</item>
     </style>
 </resources>
