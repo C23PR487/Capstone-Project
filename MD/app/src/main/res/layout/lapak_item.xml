@@ -36,6 +36,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/text_view_area"
             android:layout_marginBottom="@dimen/x_x_x_small_space"
+            android:maxLines="1"
+            android:ellipsize="end"
             tools:text="Rp. 1.200.000,00"
             />
 
@@ -64,6 +66,7 @@
             app:layout_constraintBottom_toTopOf="@id/text_view_redirect"
             android:layout_marginBottom="@dimen/x_small_space"
             android:maxLines="1"
+            android:ellipsize="end"
             tools:text="Jalan JalanJalan JalanJalan JalanJalan JalanJalan Jalan Jalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan Jalan"
             />
 
