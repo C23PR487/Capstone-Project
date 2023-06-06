@@ -6,5 +6,5 @@ import java.text.NumberFormat
 import java.util.Locale
 
 fun Int.toIdr(): String {
-    return NumberFormat.getCurrencyInstance(Locale("in-ID")).format(this)
+    return NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(this)
 }

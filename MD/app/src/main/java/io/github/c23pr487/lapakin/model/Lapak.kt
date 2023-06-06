@@ -6,6 +6,5 @@ data class Lapak(
     val price: Int,
     val details: LapakDetails,
     val seller: Seller,
-    val lat: Long,
-    val lon: Long,
+    val locationUrl: String,
 )
