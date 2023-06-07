@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">LapakIn</string>
     <string name="recommend_text">Rekomendasi Untukmu</string>
-    <string name="see_details">Lihat selengkapnya...</string>
+    <string name="see_details">Lihat selengkapnya…</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="sign_in_google">Masuk dengan Google</string>
-    <string name="tagline">suatu UX writing, tagline, atau semacamnya, something2...</string>
+    <string name="tagline">suatu UX writing, tagline, atau semacamnya, something2…</string>
+    <string name="lapak_details_title">Lapak</string>
+    <string name="description_title">Deskripsi</string>
+    <string name="show_more_message">Baca Selengkapnya</string>
+    <string name="price">%s\nper bulan</string>
+    <string name="lapak_sale_info">Luas : %s\nTipe : Sewa\nAlamat :\n%s</string>
+    <string name="seller_title">Hubungi Penjual</string>
 </resources>
