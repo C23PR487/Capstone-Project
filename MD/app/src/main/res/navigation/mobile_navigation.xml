@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="io.github.c23pr487.lapakin.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_profile"
+        android:name="io.github.c23pr487.lapakin.ui.profile.ProfileFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>

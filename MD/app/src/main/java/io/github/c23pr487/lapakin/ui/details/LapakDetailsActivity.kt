@@ -106,8 +106,8 @@ class LapakDetailsActivity : AppCompatActivity() {
         binding.textViewInfoPrice.text = resources.getString(R.string.price, lapak.price.toIdr())
         binding.textViewInfoBody.text = resources.getString(R.string.lapak_sale_info, lapak.buildingArea, lapak.address)
         binding.textViewInfoLabel.text = lapak.label
-        binding.textViewSellerName.text = lapak.sellerName
-        binding.textViewSellerPhone.text = lapak.sellerPhoneNumber
+        binding.textViewSellerName.text = lapak.sellerName ?: "-"
+        binding.textViewSellerPhone.text = lapak.sellerPhoneNumber ?: "-"
 
         if (lapak.sellerName != null && lapak.sellerPhoneNumber != null) {
             binding.cardViewSeller.setOnClickListener {

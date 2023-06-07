@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -108,20 +109,31 @@ class AuthenticationActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+                    if (task.result.additionalUserInfo?.isNewUser == true) {
+                        updateUI(user, true)
+                    }
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     updateUI(null)
                 }
+
             }
     }
 
-    private fun updateUI(currentUser: FirebaseUser?) {
-        if (currentUser != null){
+    private fun updateUI(currentUser: FirebaseUser?, newUser: Boolean = false) {
+        if (currentUser != null && !newUser){
             startActivity(Intent(this@AuthenticationActivity, MainActivity::class.java))
             finish()
+            return
         }
+
+        if (currentUser != null) {
+            TODO("Handle new user.")
+        }
+
+        Snackbar.make(this, binding.root, getString(R.string.login_failed_message), Snackbar.LENGTH_SHORT).show()
     }
 
     companion object {

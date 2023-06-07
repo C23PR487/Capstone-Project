@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.LapakIn" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -66,6 +66,11 @@
         <item name="android:fontFamily">@font/rubik_semi_bold</item>
     </style>
 
+    <style name="FilterButtonTextAppearance.Profile" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
+
     <style name="LapakCard.TextAppearance.Title" parent="TextAppearance.Material3.TitleSmall">
         <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/rubik_medium</item>
@@ -97,6 +102,10 @@
         <item name="fontFamily">@font/rubik_bold</item>
     </style>
 
+    <style name="ComponentTitleTextAppearance.Profile">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
     <style name="ComponentBodyTextAppearance" parent="TextAppearance.Material3.BodyMedium">
         <item name="fontFamily">@font/rubik_regular</item>
         <item name="android:fontFamily">@font/rubik_regular</item>
@@ -109,5 +118,21 @@
     
     <style name="ComponentBodyTextAppearance.ShowMore">
         <item name="android:textColor">@color/primary_gray</item>
+    </style>
+
+    <style name="LogoutButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textAppearance">@style/ComponentTitleTextAppearance.Profile</item>
+    </style>
+    
+    <style name="Profile" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textColor">@color/primary_white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="PrefixTextAppearance" parent="TextAppearance.Material3.SearchView.Prefix">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textColor">@color/primary_black</item>
     </style>
 </resources>
