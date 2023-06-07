@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.details.LapakDetailsActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/Theme.LapakIn.Toolbar"
+        app:titleTextAppearance="@style/MyTitleTextAppearance"
+        app:titleTextColor="@color/primary_black"
+        android:backgroundTint="@color/secondary_light_red"
+        android:backgroundTintMode="add"
+        tools:title="Lapak"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <Space
+                android:id="@+id/top_space"
+                android:layout_width="0dp"
+                android:layout_height="19dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <ImageView
+                android:id="@+id/image_view_thumbnail"
+                android:layout_width="0dp"
+                android:layout_height="186dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/top_space"
+                tools:src="@drawable/page_background"
+                android:layout_marginStart="@dimen/ml_space"
+                android:layout_marginEnd="@dimen/ml_space"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/ssm_space"
+                android:layout_marginEnd="@dimen/ssm_space"
+                android:layout_marginTop="@dimen/sm_space"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_view_thumbnail"
+                app:cardCornerRadius="@dimen/corner_radius">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="14dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/text_view_description_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/Theme.LapakIn.Bold"
+                        android:text="@string/description_title"
+                        android:textAppearance="@style/ComponentTitleTextAppearance"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginTop="@dimen/sm_space"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/text_view_description_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/Theme.LapakIn.Regular"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="end"
+                        app:layout_constraintStart_toStartOf="@id/text_view_description_title"
+                        app:layout_constraintEnd_toEndOf="@id/text_view_description_title"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_description_title"
+                        tools:text="Bangunan ini pernah digunakan sebagai tempat untuk melakukan usaha A,B,C. Letaknya berseberangan langsung dengan Kemang. Adapun beberapa fasilitas umum yang disediakan cukup memadai, yakni air, listrik, toilet, dll. Selain itu "
+                        android:textAppearance="@style/ComponentBodyTextAppearance"/>
+
+                    <TextView
+                        android:id="@+id/text_view_show_more"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/Theme.LapakIn.Regular"
+                        android:layout_marginTop="@dimen/x_small_space"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/ComponentBodyTextAppearance.ShowMore"
+                        app:layout_constraintStart_toStartOf="@id/text_view_description_content"
+                        app:layout_constraintEnd_toEndOf="@id/text_view_description_content"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_description_content"
+                        android:text="@string/show_more_message"
+                        android:visibility="gone"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_information"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_space"
+                app:layout_constraintStart_toStartOf="@id/card_view_description"
+                app:layout_constraintEnd_toEndOf="@id/card_view_description"
+                app:layout_constraintTop_toBottomOf="@id/card_view_description"
+                app:cardCornerRadius="@dimen/corner_radius">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="19dp"
+                    android:paddingEnd="17dp"
+                    android:paddingBottom="11dp"
+                    android:paddingTop="26dp">
+
+                    <TextView
+                        android:id="@+id/text_view_info_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="Rp1.200.000,00\nper bulan"
+                        android:theme="@style/Theme.LapakIn.Bold"
+                        android:textAppearance="@style/ComponentTitleTextAppearance"
+                        android:lineHeight="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/text_view_info_label"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/text_view_info_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Laundry"/>
+
+                    <TextView
+                        android:id="@+id/text_view_info_body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/lapak_sale_info"
+                        android:theme="@style/Theme.LapakIn.Regular"
+                        style="@style/ComponentBodyTextAppearance"
+                        android:layout_marginTop="6dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_info_price"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_seller"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_space"
+                app:layout_constraintStart_toStartOf="@id/card_view_description"
+                app:layout_constraintEnd_toEndOf="@id/card_view_description"
+                app:layout_constraintTop_toBottomOf="@id/card_view_information"
+                app:cardCornerRadius="@dimen/corner_radius">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/text_view_seller_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/seller_title"
+                        android:theme="@style/Theme.LapakIn.Bold"
+                        android:textAppearance="@style/ComponentTitleTextAppearance"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/text_view_seller_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="Orang baik"
+                        android:layout_marginTop="6dp"
+                        android:theme="@style/Theme.LapakIn.Regular"
+                        android:textAppearance="@style/ComponentBodyTextAppearance.SellerInfo"
+                        app:drawableStartCompat="@drawable/baseline_person_24"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_seller_title"/>
+
+                    <TextView
+                        android:id="@+id/text_view_seller_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="081262627272"
+                        android:layout_marginTop="6dp"
+                        android:theme="@style/Theme.LapakIn.Regular"
+                        android:textAppearance="@style/ComponentBodyTextAppearance.SellerInfo"
+                        app:drawableStartCompat="@drawable/baseline_phone_24"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_view_seller_name"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_maps"
+                android:layout_width="0dp"
+                android:layout_height="132dp"
+                android:layout_marginTop="25dp"
+                app:layout_constraintStart_toStartOf="@id/card_view_description"
+                app:layout_constraintEnd_toEndOf="@id/card_view_description"
+                app:layout_constraintTop_toBottomOf="@id/card_view_seller"
+                app:cardCornerRadius="@dimen/corner_radius">
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:id="@+id/fragment_maps_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:id="@+id/space_bottom"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                app:layout_constraintStart_toStartOf="@id/card_view_description"
+                app:layout_constraintEnd_toEndOf="@id/card_view_description"
+                app:layout_constraintTop_toBottomOf="@id/card_view_maps"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,11 +10,11 @@ data class Lapak(
     val name: String,
     val description: String,
     val price: Int,
-    val buildingArea: Int,
+    val buildingArea: String,
     val city: String,
     val subDistrict: String,
     val address: String,
     val sellerName: String?,
-    val contact: String,
+    val sellerPhoneNumber: String?,
     val label: String,
     ) : Parcelable
