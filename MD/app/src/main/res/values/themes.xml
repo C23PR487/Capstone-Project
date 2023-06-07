@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/primary_black</item>
         <item name="colorOnPrimary">@color/primary_white</item>
         <item name="colorOnSurface">@color/primary_white</item>
+        <item name="colorSurface">@color/primary_white</item>
         <item name="toolbarStyle">@style/MyToolbar</item>
     </style>
 

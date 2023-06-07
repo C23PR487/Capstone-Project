@@ -5,19 +5,70 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MarkerOptions
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.ActivityLapakDetailsBinding
 import io.github.c23pr487.lapakin.model.Lapak
+import io.github.c23pr487.lapakin.utils.getLatLng
 import io.github.c23pr487.lapakin.utils.toIdr
 
 class LapakDetailsActivity : AppCompatActivity() {
     private val binding: ActivityLapakDetailsBinding by lazy {
         ActivityLapakDetailsBinding.inflate(layoutInflater)
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+    private val lapak by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(EXTRA_LAPAK, Lapak::class.java)
+        } else {
+            intent.getParcelableExtra(EXTRA_LAPAK)
+        }
+    }
+
+    private val callback = OnMapReadyCallback { googleMap ->
+        val url = lapak?.gmapsUrl
+        googleMap.setOnMapLoadedCallback {
+            val latLng = url?.getLatLng() as LatLng
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16F))
+            googleMap.addMarker(MarkerOptions()
+                .position(latLng)
+                .title(lapak?.name)
+            )
+        }
+        googleMap.uiSettings.apply {
+            isMapToolbarEnabled = false
+            isRotateGesturesEnabled = false
+            isScrollGesturesEnabled = false
+            isTiltGesturesEnabled = false
+            isZoomGesturesEnabled = false
+            isScrollGesturesEnabledDuringRotateOrZoom = false
+        }
+
+        googleMap.setOnMapClickListener {
+            val latLng = lapak?.gmapsUrl?.getLatLng()
+            val lat = latLng?.latitude
+            val long = latLng?.longitude
+            val uri = Uri.parse("geo:${lat},${long}?z=20&q=$lat, $long(${lapak?.name})")
+            Log.d("A", uri.toString())
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            Log.d("Details", "${intent.resolveActivity(packageManager)}")
+            intent.resolveActivity(packageManager)?.let {
+                startActivity(intent)
+            }
+        }
+
+    }
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -27,11 +78,7 @@ class LapakDetailsActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
         }
 
-        val lapak = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(EXTRA_LAPAK, Lapak::class.java)
-        } else {
-            intent.getParcelableExtra(EXTRA_LAPAK)
-        }
+        makeMap()
 
         updateUI(lapak as Lapak)
 
@@ -46,6 +93,11 @@ class LapakDetailsActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun makeMap() {
+        val fragment = binding.fragmentMapsView.getFragment() as SupportMapFragment?
+        fragment?.getMapAsync(callback)
     }
 
     private fun updateUI(lapak: Lapak) {
