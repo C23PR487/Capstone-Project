@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.ActivityAuthenticationBinding
@@ -58,8 +60,6 @@ class AuthenticationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         fillInLogoTextView()
-
-        updateUI(auth.currentUser)
 
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -111,6 +111,7 @@ class AuthenticationActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     if (task.result.additionalUserInfo?.isNewUser == true) {
                         updateUI(user, true)
+                        return@addOnCompleteListener
                     }
                     updateUI(user)
                 } else {
@@ -130,7 +131,9 @@ class AuthenticationActivity : AppCompatActivity() {
         }
 
         if (currentUser != null) {
-            TODO("Handle new user.")
+            startActivity(Intent(this, PreferencesActivity::class.java))
+            finish()
+            return
         }
 
         Snackbar.make(this, binding.root, getString(R.string.login_failed_message), Snackbar.LENGTH_SHORT).show()

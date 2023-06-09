@@ -123,6 +123,9 @@
     <style name="LogoutButton" parent="Widget.Material3.Button.OutlinedButton">
         <item name="android:textAppearance">@style/ComponentTitleTextAppearance.Profile</item>
     </style>
+
+    <style name="SavePreferenceButton" parent="ThemeOverlay.Material3.Button.ElevatedButton">
+    </style>
     
     <style name="Profile" parent="TextAppearance.Material3.TitleMedium">
         <item name="android:fontFamily">@font/rubik_semi_bold</item>
