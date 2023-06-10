@@ -1,8 +1,10 @@
 package io.github.c23pr487.lapakin.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.icu.number.NumberFormatter
 import android.net.Uri
+import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
@@ -32,3 +34,8 @@ fun ImageView.loadImageWithUri(uri: Uri, context: Context) {
         .load(uri)
         .into(this)
 }
+
+val Number.toPx get() = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP,
+    this.toFloat(),
+    Resources.getSystem().displayMetrics)
