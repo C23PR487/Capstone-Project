@@ -1,29 +1,35 @@
 const {
   getAllDataHandler,
-  getAllDataByPriorityHandler,
+  getFilteredDataHandler,
   getDataByIdHandler,
   addDataHandler,
+  getTestServerHandler,
 } = require('./handler');
 
 const routes = [
   {
     method: 'GET',
-    path: '/spaces/all',
+    path: '/test',
+    handler: getTestServerHandler,
+  },
+  {
+    method: 'GET',
+    path: '/stalls/all',
     handler: getAllDataHandler,
   },
   {
     method: 'GET',
-    path: '/spaces',
-    handler: getAllDataByPriorityHandler,
+    path: '/stalls/filtered',
+    handler: getFilteredDataHandler,
   },
   {
     method: 'GET',
-    path: '/spaces/{id}/details',
+    path: '/stalls/{id}/details',
     handler: getDataByIdHandler,
   },
   {
     method: 'POST',
-    path: '/spaces',
+    path: '/stalls',
     handler: addDataHandler,
   },
 ];
