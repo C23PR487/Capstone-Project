@@ -17,69 +17,103 @@ const getAllDataHandler = () => (
 
 const getFilteredDataHandler = (request) => {
   const {
-    label, prior1, value1, prior2, value2,
+    label = null, prior1 = null, prior2 = null, prior3 = null,
+    value1 = null, value2 = null, value3 = null,
   } = request.query;
   return new Promise((resolve, reject) => {
     if (prior1 === 'harga') {
-      const sql = `WITH not_important AS (
-        SELECT id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
-        harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label 
-        FROM lapak_lapakin
-        WHERE ${prior2} != ${value2} AND label = ${label}
-        order by ${prior1}
-    ), important AS (
-      SELECT id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
-      harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label 
-        FROM lapak_lapakin
-        WHERE ${prior2} = ${value2} AND label = ${label} AND ${prior1} < ${value1}
-        order by ${prior1}
-    )
-    SELECT * FROM important
-    UNION all
-    SELECT * FROM not_important;`;
-
-      db.query(sql, (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results);
+      const sql = `
+      WITH fourth_important as (
+        SELECT id, harga, alamat, kota, label, kecamatan
+          FROM test_lapakin
+          WHERE label = ${label} 
+          ORDER BY harga
+      ),third_important AS (
+          SELECT id, harga, alamat, kota, label, kecamatan
+          FROM test_lapakin
+          WHERE CASE 
+            WHEN ${prior3} IS NULL THEN  ${prior2} = ${value2} AND label = ${label}
+            ELSE ${prior2} = ${value2} AND ${prior3} = ${value3} AND label = ${label} 
+          END
+          ORDER BY harga
+      ), second_important AS(
+        SELECT id, harga, alamat, kota, label, kecamatan
+          FROM test_lapakin
+          WHERE CASE 
+            WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label}
+            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${value1}
+          END
+          ORDER BY harga
+      ), first_important AS (
+          SELECT id, harga, alamat, kota, label, kecamatan
+          FROM test_lapakin
+          WHERE CASE 
+            WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label} AND ${prior1} <= ${value1}
+            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${value1}
+          END
+          ORDER BY harga
+      )
+      SELECT DISTINCT * from(
+      SELECT * FROM first_important
+      UNION ALL
+      SELECT * FROM second_important
+      UNION ALL
+      SELECT * FROM third_important
+      UNION ALL
+      SELECT * FROM fourth_important
+      ) as combined_result;`;
+      db.query(sql, (err, res) => {
+        if (err) {
+          reject(err);
         }
+        resolve(res);
       });
-    } else {
-      const sql = `WITH not_important AS (
-        SELECT id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
-        harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label 
-        FROM lapak_lapakin
-        WHERE ${prior1} = ${value1} AND label = ${label}
-        order by ${prior2}
-    ), important AS (
-      SELECT id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
-      harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label 
-        FROM lapak_lapakin
-        WHERE ${prior1} = ${value1} AND label = ${label} AND ${prior2} < ${value2}
-        order by ${prior2}
+    }
+    if (prior1 === 'kota' || prior1 === 'kecamatan') {
+      const sql = `
+      WITH third_important AS (
+        SELECT id, harga, alamat, kota, label, kecamatan
+        FROM test_lapakin
+        WHERE label = ${label} 
+        ORDER BY harga
+    ), second_important AS(
+      SELECT id, harga, alamat, kota, label, kecamatan
+        FROM test_lapakin
+        WHERE CASE 
+          WHEN ${prior2} IS NULL THEN label = ${label}
+          ELSE ${prior1} = ${value1} AND ${prior2} != ${value2} AND label = ${label}
+        END
+        ORDER BY harga
+    ), first_important AS (
+        SELECT id, harga, alamat, kota, label, kecamatan
+        FROM test_lapakin
+        WHERE CASE 
+          WHEN ${prior2} IS NULL THEN ${prior1} = ${value1} AND label = ${label}
+          ELSE ${prior1} = ${value1} AND ${prior2} = ${value2} AND label = ${label} 
+        END
+        ORDER BY harga
     )
-    select DISTINCT * from (
-    SELECT * FROM important
-    UNION all
-    SELECT * FROM not_important
-    ) as combined_results;`;
-
-      db.query(sql, (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results);
+    SELECT DISTINCT * from(
+    SELECT * FROM first_important
+    UNION ALL
+    SELECT * FROM second_important
+    UNION ALL
+    SELECT * FROM third_important
+    ) as combined_result;`;
+      db.query(sql, (err, res) => {
+        if (err) {
+          reject(err);
         }
+        resolve(res);
       });
     }
   });
 };
 
-/* const getDataByIdHandler = (request) => {
+const getDataByIdHandler = (request) => {
   const { id } = request.params;
   return new Promise((resolve, reject) => {
-    const sql = `SELECT * FROM lapak_lapakin WHERE id ='${id}'`;
+    const sql = `SELECT * FROM test_lapakin WHERE id ='${id}'`;
     db.query(sql, (error, results) => {
       if (error) {
         reject(error);
@@ -88,7 +122,7 @@ const getFilteredDataHandler = (request) => {
       }
     });
   });
-}; */
+};
 
 const addDataHandler = (request) => {
   const r = request;
@@ -125,6 +159,6 @@ const addDataHandler = (request) => {
 module.exports = {
   getAllDataHandler,
   getFilteredDataHandler,
-  // getDataByIdHandler,
+  getDataByIdHandler,
   addDataHandler,
 };

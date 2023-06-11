@@ -1,7 +1,7 @@
 const {
   getAllDataHandler,
   getFilteredDataHandler,
-  // getDataByIdHandler,
+  getDataByIdHandler,
   addDataHandler,
 } = require('./handler');
 
@@ -16,14 +16,14 @@ const routes = [
     path: '/stalls/filtered',
     handler: getFilteredDataHandler,
   },
-  /* {
+  {
     method: 'GET',
-    path: '/spaces/{id}/details',
+    path: '/stalls/{id}/details',
     handler: getDataByIdHandler,
-  }, */
+  },
   {
     method: 'POST',
-    path: '/spaces',
+    path: '/stalls',
     handler: addDataHandler,
   },
 ];
