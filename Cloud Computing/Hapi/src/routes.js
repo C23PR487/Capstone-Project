@@ -3,9 +3,15 @@ const {
   getFilteredDataHandler,
   getDataByIdHandler,
   addDataHandler,
+  getTestServerHandler,
 } = require('./handler');
 
 const routes = [
+  {
+    method: 'GET',
+    path: '/test',
+    handler: getTestServerHandler,
+  },
   {
     method: 'GET',
     path: '/stalls/all',

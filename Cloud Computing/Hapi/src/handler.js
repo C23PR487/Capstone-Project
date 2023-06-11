@@ -1,6 +1,11 @@
 const { nanoid } = require('nanoid');
 const db = require('./db_config');
 
+const getTestServerHandler = () => {
+  Promise((resolve) => {
+    resolve({ message: '202-test-success!' });
+  });
+};
 // Retrieve all data in database
 const getAllDataHandler = () => (
   new Promise((resolve, reject) => {
@@ -161,4 +166,5 @@ module.exports = {
   getFilteredDataHandler,
   getDataByIdHandler,
   addDataHandler,
+  getTestServerHandler,
 };
