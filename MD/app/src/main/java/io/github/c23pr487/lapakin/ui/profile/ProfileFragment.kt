@@ -82,15 +82,15 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun setUpDropdown() {
-        val subdistricts = arrayOf(
-            resources.getString(R.string.subdistrict_null),
-        )
+    private fun setUpDropdown(subdistricts: Array<String>? = arrayOf(
+        resources.getString(R.string.subdistrict_null),
+    )) {
         binding.textViewLabel.setSimpleItems(labels)
         binding.textViewCity.setSimpleItems(cities)
-        binding.textViewSubdistrict.setSimpleItems(subdistricts)
+        subdistricts?.let{
+            binding.textViewSubdistrict.setSimpleItems(it)
+        }
     }
-
     private fun updateUI() {
         if (user == null) {
             requireActivity().startActivity(Intent(requireActivity(), AuthenticationActivity::class.java))
@@ -166,12 +166,11 @@ class ProfileFragment : Fragment() {
                 }
             }
 
-            binding.textViewSubdistrict.run {
-                setSimpleItems(subdistricts)
-                text = null
-            }
-
             binding.textViewCity.setText((city ?: getString(R.string.city_null)), false)
+            if (subdistricts.indexOf(binding.textViewSubdistrict.text.toString()) < 0) {
+                binding.textViewSubdistrict.text = null
+            }
+            setUpDropdown(subdistricts)
         }
 
         viewModel.maxPrice.observe(viewLifecycleOwner) {maxPrice ->
@@ -180,11 +179,12 @@ class ProfileFragment : Fragment() {
 
         viewModel.selectedLabel.observe(viewLifecycleOwner) {label ->
             binding.textViewLabel.setText(label ?: getString(R.string.label_null), false)
-
+            setUpDropdown(null)
         }
 
         viewModel.selectedSubdistrict.observe(viewLifecycleOwner) {subdistrict ->
             binding.textViewSubdistrict.setText(subdistrict ?: getString(R.string.subdistrict_null), false)
+            setUpDropdown(null)
         }
 
         viewModel.snackBarMessage.observe(viewLifecycleOwner) {message ->
