@@ -6,4 +6,14 @@ data class UserPreference(
     var city: String? = null,
     var subdistrict: String? = null,
     var maxPrice: Int? = null
-)
+) {
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "id" to id,
+            "label" to label,
+            "city" to city,
+            "subdistrict" to subdistrict,
+            "maxPrice" to maxPrice
+        )
+    }
+}

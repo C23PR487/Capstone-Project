@@ -4,14 +4,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -35,19 +38,27 @@ class ProfileFragment : Fragment() {
     }
 
     private val viewModel: ProfileViewModel by viewModels {
-        try {
-            ProfileViewModel.Factory(
-                Firebase.auth,
-                Firebase.database(getString(R.string.database_url)).reference
-            )
-        } catch (e: DatabaseException) {
-            ProfileViewModel.Factory(
-                Firebase.auth,
-                null
-            )
-        }
+        ProfileViewModel.Factory(requireContext())
     }
 
+    private val labels by lazy {
+        arrayOf(
+            resources.getString(R.string.label_null),
+            resources.getString(R.string.label_clothing),
+            resources.getString(R.string.label_coffee),
+            resources.getString(R.string.label_food),
+            resources.getString(R.string.label_fotocopy),
+            resources.getString(R.string.label_laundry)
+        )
+    }
+
+    private val cities by lazy {
+        arrayOf(
+            resources.getString(R.string.city_null),
+            resources.getString(R.string.city_north_jakarta),
+            resources.getString(R.string.city_south_jakarta)
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,6 +74,7 @@ class ProfileFragment : Fragment() {
         updateUI()
         setUpLogoutButton()
         viewModelListen()
+        listenToUserUpdates()
     }
 
     override fun onDestroyView() {
@@ -71,29 +83,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setUpDropdown() {
-        val labels = arrayOf(
-            resources.getString(R.string.label_null),
-            resources.getString(R.string.label_clothing),
-            resources.getString(R.string.label_coffee),
-            resources.getString(R.string.label_food),
-            resources.getString(R.string.label_fotocopy),
-            resources.getString(R.string.label_laundry)
-        )
-        (binding.textViewLabel as MaterialAutoCompleteTextView).setSimpleItems(labels)
-
-        val cities = arrayOf(
-            resources.getString(R.string.city_null),
-            resources.getString(R.string.city_north_jakarta),
-            resources.getString(R.string.city_south_jakarta)
-        )
-        (binding.textViewCity as MaterialAutoCompleteTextView).setSimpleItems(cities)
-
         val subdistricts = arrayOf(
             resources.getString(R.string.subdistrict_null),
         )
-
-        (binding.textViewSubdistrict as MaterialAutoCompleteTextView).setSimpleItems(subdistricts)
-
+        binding.textViewLabel.setSimpleItems(labels)
+        binding.textViewCity.setSimpleItems(cities)
+        binding.textViewSubdistrict.setSimpleItems(subdistricts)
     }
 
     private fun updateUI() {
@@ -171,25 +166,100 @@ class ProfileFragment : Fragment() {
                 }
             }
 
-            (binding.textViewSubdistrict as MaterialAutoCompleteTextView).run {
+            binding.textViewSubdistrict.run {
                 setSimpleItems(subdistricts)
                 text = null
             }
 
-            binding.textViewCity.text = Editable.Factory.getInstance().newEditable(city ?: getString(R.string.city_null))
+            binding.textViewCity.setText((city ?: getString(R.string.city_null)), false)
         }
 
         viewModel.maxPrice.observe(viewLifecycleOwner) {maxPrice ->
-            binding.editTextMaxPrice.setText((maxPrice ?: 0).toString())
+            binding.editTextMaxPrice.setText((maxPrice ?: "").toString())
         }
 
         viewModel.selectedLabel.observe(viewLifecycleOwner) {label ->
-            (binding.textViewLabel as MaterialAutoCompleteTextView).setText(label ?: getString(R.string.label_null))
+            binding.textViewLabel.setText(label ?: getString(R.string.label_null), false)
 
         }
 
         viewModel.selectedSubdistrict.observe(viewLifecycleOwner) {subdistrict ->
-            binding.textViewSubdistrict.setText(subdistrict ?: getString(R.string.subdistrict_null))
+            binding.textViewSubdistrict.setText(subdistrict ?: getString(R.string.subdistrict_null), false)
+        }
+
+        viewModel.snackBarMessage.observe(viewLifecycleOwner) {message ->
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun listenToUserUpdates() {
+        binding.textViewLabel.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val label = if (p0.toString() == getString(R.string.label_null)) {
+                    null
+                } else {
+                    p0.toString()
+                }
+                viewModel.changeLabel(label)
+            }
+
+        })
+
+        binding.textViewCity.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val city = if (p0.toString() == getString(R.string.city_null)) {
+                    null
+                } else {
+                    p0.toString()
+                }
+                viewModel.changeCity(city)
+            }
+
+        })
+
+        binding.textViewSubdistrict.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val subdistrict = if (p0.toString() == getString(R.string.subdistrict_null) ||
+                        p0.toString().isEmpty()) {
+                    null
+                } else {
+                    p0.toString()
+                }
+                viewModel.changeSubdistrict(subdistrict)
+            }
+
+        })
+
+        binding.editTextMaxPrice.setOnFocusChangeListener { _, isFocused ->
+            if (isFocused) return@setOnFocusChangeListener
+
+            val input = binding.editTextMaxPrice.text.toString()
+            val maxPrice = if (input.isEmpty()) null else input.toString().toIntOrNull()
+            viewModel.changeMaxPrice(maxPrice)
         }
     }
 }

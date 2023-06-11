@@ -3,98 +3,94 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="153dp"
-    android:layout_height="238dp"
-    app:cardCornerRadius="@dimen/corner_radius"
-    android:layout_margin="@dimen/medium_space">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:minHeight="238dp"
+        >
 
         <ImageView
             android:id="@+id/image_view_thumbnail"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
             android:layout_marginBottom="@dimen/x_small_space"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@id/text_view_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/thumbnail"/>
+            app:srcCompat="@drawable/thumbnail" />
 
         <TextView
             android:id="@+id/text_view_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:theme="@style/Theme.LapakIn.Medium"
             android:layout_marginStart="@dimen/small_space"
-            android:textAppearance="@style/LapakCard.TextAppearance.Title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/text_view_area"
             android:layout_marginBottom="@dimen/x_x_x_small_space"
-            android:maxLines="1"
             android:ellipsize="end"
-            tools:text="Rp. 1.200.000,00"
-            />
+            android:maxLines="1"
+            android:textAppearance="@style/LapakCard.TextAppearance.Title"
+            android:theme="@style/Theme.LapakIn.Medium"
+            app:layout_constraintBottom_toTopOf="@id/text_view_area"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Rp. 1.200.000,00" />
 
         <TextView
             android:id="@+id/text_view_area"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_space"
-            android:textAppearance="@style/LapakCard.TextAppearance.Body.Area"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/text_view_address"
             android:layout_marginBottom="@dimen/x_x_x_small_space"
-            tools:text="Jakarta Selatan"
-            />
+            android:textAppearance="@style/LapakCard.TextAppearance.Body.Area"
+            app:layout_constraintBottom_toTopOf="@id/text_view_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Jakarta Selatan" />
 
         <TextView
             android:id="@+id/text_view_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_space"
-            android:theme="@style/Theme.LapakIn.Regular"
-            android:textAppearance="@style/LapakCard.TextAppearance.Body.Address"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/text_view_redirect"
             android:layout_marginBottom="@dimen/x_small_space"
-            android:maxLines="1"
             android:ellipsize="end"
-            tools:text="Jalan JalanJalan JalanJalan JalanJalan JalanJalan Jalan Jalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan Jalan"
-            />
+            android:maxLines="1"
+            android:textAppearance="@style/LapakCard.TextAppearance.Body.Address"
+            android:theme="@style/Theme.LapakIn.Regular"
+            app:layout_constraintBottom_toTopOf="@id/text_view_redirect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Jalan JalanJalan JalanJalan JalanJalan JalanJalan Jalan Jalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan JalanJalan Jalan" />
 
         <TextView
             android:id="@+id/text_view_redirect"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_space"
-            android:theme="@style/Theme.LapakIn.Regular"
-            android:textAppearance="@style/LapakCard.TextAppearance.Body.Redirect"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/text_view_lapak_type"
             android:layout_marginBottom="@dimen/small_space"
             android:text="@string/see_details"
-            />
+            android:textAppearance="@style/LapakCard.TextAppearance.Body.Redirect"
+            android:theme="@style/Theme.LapakIn.Regular"
+            app:layout_constraintBottom_toTopOf="@id/text_view_lapak_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/text_view_lapak_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/LapakCard.TextAppearance.Body.Address"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="@dimen/small_space"
-            tools:text="Laundry"
-            />
+            android:textAppearance="@style/LapakCard.TextAppearance.Body.Address"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Laundry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.firebase.auth.ktx.auth
@@ -124,13 +125,16 @@ class PreferencesActivity : AppCompatActivity() {
                 ).show()
                 return@setOnClickListener
             }
-            val userPreference = getUserPreference()
-            Log.i(TAG, userPreference.toString())
-
-            reference.child("userPreference").push().setValue(userPreference)
-
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            MaterialAlertDialogBuilder(this)
+                .setMessage(getString(R.string.preference_save_message))
+                .setNegativeButton(getString(R.string.logout_negative_button)) {dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(getString(R.string.save_buttom_message)) { dialog, _ ->
+                    savePreference()
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 
@@ -142,6 +146,16 @@ class PreferencesActivity : AppCompatActivity() {
         return label.isNotEmpty() &&
                 city.isNotEmpty() &&
                 subdistrict.isNotEmpty()
+    }
+
+    private fun savePreference() {
+        val userPreference = getUserPreference()
+        Log.i(TAG, userPreference.toString())
+
+        reference.child("userPreference").push().setValue(userPreference)
+
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun getUserPreference(): UserPreference {
