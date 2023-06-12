@@ -49,5 +49,7 @@
     <string name="button_save_message">Simpan</string>
     <string name="input_empty_message">Mohon isi field-field yang ada terlebih dahulu.</string>
     <string name="database_url">https://lapakin-d5982-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+    <string name="save_buttom_message">Simpan</string>
+    <string name="preference_save_message">Simpan data?</string>
 </resources>
 

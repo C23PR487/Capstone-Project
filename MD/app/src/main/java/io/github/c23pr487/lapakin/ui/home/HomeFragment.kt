@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = LapakAdapter()
+        binding.recyclerView.addItemDecoration(MyItemDecorator())
 
         binding.buttonFilter.setOnClickListener {
 
