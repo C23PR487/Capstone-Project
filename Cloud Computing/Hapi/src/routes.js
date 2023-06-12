@@ -9,7 +9,7 @@ const {
 const routes = [
   {
     method: 'GET',
-    path: '/test',
+    path: '/',
     handler: getTestServerHandler,
   },
   {
