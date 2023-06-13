@@ -28,8 +28,19 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
     private val _message = MutableLiveData<Int?>()
     val message: LiveData<Int?> = _message
 
+    private val _filterMode = MutableLiveData(R.id.radio_button_preference)
+    val filterMode: LiveData<Int> = _filterMode
+
     init {
-        getPreferenceLapak()
+        updateLapaks()
+    }
+
+    fun updateLapaks() {
+        when (_filterMode.value) {
+            R.id.radio_button_preference -> getPreferenceLapak()
+            R.id.radio_button_all -> getAllLapak()
+            else -> Unit
+        }
     }
 
     private fun getPreferenceLapak() {
@@ -128,6 +139,10 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
             else -> null
 
         }.encloseWithSingleQuotes()
+    }
+
+    fun changeFilterMode(id: Int?) {
+        _filterMode.value = id ?: R.id.radio_button_preference
     }
 
     @Suppress("UNCHECKED_CAST")

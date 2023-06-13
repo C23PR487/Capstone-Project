@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,7 @@ import io.github.c23pr487.lapakin.utils.loadImageWithUrl
 import io.github.c23pr487.lapakin.utils.styleLabel
 import io.github.c23pr487.lapakin.utils.toIdr
 
-class LapakAdapter(private val lapaks: List<LapakCard>) : RecyclerView.Adapter<LapakAdapter.LapakViewHolder>() {
+class LapakAdapter(private val lapaks: List<LapakCard>, private val callback: (String?) -> Unit) : RecyclerView.Adapter<LapakAdapter.LapakViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LapakViewHolder {
         val binding = LapakItemBinding.inflate(
@@ -25,7 +26,7 @@ class LapakAdapter(private val lapaks: List<LapakCard>) : RecyclerView.Adapter<L
             false
         )
 
-        return LapakViewHolder(binding)
+        return LapakViewHolder(binding, callback)
     }
 
     override fun onBindViewHolder(holder: LapakViewHolder, position: Int) {
@@ -36,7 +37,19 @@ class LapakAdapter(private val lapaks: List<LapakCard>) : RecyclerView.Adapter<L
         return lapaks.size
     }
 
-    class LapakViewHolder(private val binding: LapakItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class LapakViewHolder(private val binding: LapakItemBinding,
+                          callback: (String?) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+
+        private lateinit var lapak: LapakCard
+
+        init {
+            binding.root.setOnClickListener {
+                binding.circularProgressBar.visibility = View.VISIBLE
+                callback.invoke(lapak.id)
+                binding.circularProgressBar.visibility = View.INVISIBLE
+            }
+        }
+
         fun bind(lapak: LapakCard) {
             binding.textViewPrice.text = lapak.price?.toIntOrNull()?.toIdr()
             binding.textViewArea.text = lapak.subdistrict
@@ -45,15 +58,8 @@ class LapakAdapter(private val lapaks: List<LapakCard>) : RecyclerView.Adapter<L
             lapak.thumbnailUrl?.let {
                 binding.imageViewThumbnail.loadImageWithUrl(it, binding.root.context)
             }
+            this.lapak = lapak
 
-            binding.root.setOnClickListener {
-                binding.root.context.startActivity(
-                    Intent(
-                    binding.root.context,
-                        LapakDetailsActivity::class.java
-                    ).apply { putExtra(EXTRA_ID, lapak.id) }
-                )
-            }
         }
     }
 }

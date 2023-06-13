@@ -52,5 +52,8 @@
     <string name="preference_save_message">Simpan data?</string>
     <string name="problem_encountered_home">Maaf, terjadi masalah koneksi ke server.</string>
     <string name="no_lapak_found">Tidak ada lapak yang ditemukan</string>
+    <string name="filter_all">Semua</string>
+    <string name="filter_custom">Kustom</string>
+    <string name="filter_preference">Rekomendasi Untukmu</string>
 </resources>
 

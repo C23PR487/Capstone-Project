@@ -35,6 +35,12 @@
         <item name="strokeWidth">3dp</item>
     </style>
 
+    <style name="FilterBottomSheetTextAppearance" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="FilterButtonTextAppearance.BottomAppBar">
         <item name="android:textColor">@color/primary_dark_blue</item>
     </style>

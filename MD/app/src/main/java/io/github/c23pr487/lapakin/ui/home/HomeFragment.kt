@@ -1,5 +1,6 @@
 package io.github.c23pr487.lapakin.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.FragmentHomeBinding
+import io.github.c23pr487.lapakin.ui.details.LapakDetailsActivity
 
 class HomeFragment : Fragment() {
 
@@ -31,7 +34,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,7 +45,20 @@ class HomeFragment : Fragment() {
         binding.recyclerView.addItemDecoration(MyItemDecorator())
 
         binding.buttonFilter.setOnClickListener {
-
+            val bottomSheet = FilterBottomSheetFragment().apply {
+                arguments = Bundle().apply {
+                    viewModel.filterMode.value?.let { notNullFilterMode ->
+                        putInt(FilterBottomSheetFragment.EXTRA_RADIO_BUTTON_ID,
+                            notNullFilterMode
+                        )
+                    }
+                }
+            }
+            bottomSheet.show(parentFragmentManager, null)
+            bottomSheet.setFragmentResultListener(FilterBottomSheetFragment.MY_REQUEST_KEY) {_, result ->
+                viewModel.changeFilterMode(result.getInt(FilterBottomSheetFragment.EXTRA_RADIO_BUTTON_ID))
+                viewModel.updateLapaks()
+            }
         }
 
         listenToViewModel()
@@ -68,7 +83,28 @@ class HomeFragment : Fragment() {
             }
         }
         viewModel.lapaks.observe(viewLifecycleOwner) {lapaks ->
-            binding.recyclerView.adapter = LapakAdapter(lapaks)
+            binding.recyclerView.adapter = LapakAdapter(lapaks) {id ->
+                startActivity(
+                    Intent(
+                        binding.root.context,
+                        LapakDetailsActivity::class.java
+                    ).apply { putExtra(LapakDetailsActivity.EXTRA_ID, id) }
+                )
+            }
+        }
+        viewModel.filterMode.observe(viewLifecycleOwner) {filterMode ->
+            binding.buttonFilter.text = when (filterMode) {
+                R.id.radio_button_preference -> {
+                    getString(R.string.filter_preference)
+                }
+                R.id.radio_button_all -> {
+                    getString(R.string.filter_all)
+                }
+                R.id.radio_button_custom -> {
+                    getString(R.string.filter_custom)
+                }
+                else -> null
+            }
         }
     }
 }
