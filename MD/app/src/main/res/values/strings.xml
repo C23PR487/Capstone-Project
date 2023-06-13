@@ -51,5 +51,7 @@
     <string name="database_url">https://lapakin-d5982-default-rtdb.asia-southeast1.firebasedatabase.app</string>
     <string name="save_buttom_message">Simpan</string>
     <string name="preference_save_message">Simpan data?</string>
+    <string name="problem_encountered_home">Maaf, terjadi masalah koneksi ke server.</string>
+    <string name="no_lapak_found">Tidak ada lapak yang ditemukan</string>
 </resources>
 

@@ -31,4 +31,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/small_space"
         android:layout_marginBottom="@dimen/medium_space"/>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/circular_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:indicatorColor="@color/primary_light_red"
+        style="@style/Widget.Material3.CircularProgressIndicator.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

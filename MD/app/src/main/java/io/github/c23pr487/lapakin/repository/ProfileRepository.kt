@@ -13,8 +13,8 @@ import com.google.firebase.ktx.Firebase
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.model.UserPreference
 
-class ProfileRepository(context: Context) {
-    private val db = Firebase.database(context.resources.getString(R.string.database_url)).reference
+class ProfileRepository(context: Context? = null) {
+    private val db = Firebase.database((context?.resources?.getString(R.string.database_url)) ?: "https://lapakin-d5982-default-rtdb.asia-southeast1.firebasedatabase.app").reference
 
     fun getUserPreference(listener: ValueEventListener) {
         val id = Firebase.auth.currentUser?.uid

@@ -16,11 +16,14 @@ fun Int.toIdr(): String {
     return NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(this)
 }
 
-fun String.getLatLng(): LatLng {
+fun String.getLatLng(): LatLng? {
     val slice = this.split("3d")[1].split("!4d")
-    val lat = slice[0]
-    val long = slice[1].split("!")[0]
-    return LatLng(lat.toDouble(), long.toDouble())
+    val lat = slice[0].toDoubleOrNull()
+    val long = slice[1].split("!")[0].toDoubleOrNull()
+    if (lat == null || long == null) {
+        return null
+    }
+    return LatLng(lat, long)
 }
 
 fun ImageView.loadImageWithUrl(url: String, context: Context) {
