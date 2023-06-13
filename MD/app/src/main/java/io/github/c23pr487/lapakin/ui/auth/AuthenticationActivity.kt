@@ -59,6 +59,9 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        Firebase.auth.currentUser?.let {user ->
+            updateUI(user)
+        }
         fillInLogoTextView()
 
         val gso = GoogleSignInOptions
