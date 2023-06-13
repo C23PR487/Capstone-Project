@@ -1,6 +1,5 @@
 import base64
 import json
-import os
 
 from flask import Flask, request
 
@@ -10,7 +9,7 @@ import processing
 app = Flask(__name__)
 
 
-@app.route("/", methods=["POST"])
+@app.route("/stalls", methods=["POST"])
 def index():
     """Receive and parse Pub/Sub messages containing Cloud Storage event data."""
     envelope = request.get_json()

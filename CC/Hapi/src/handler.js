@@ -28,12 +28,12 @@ const getFilteredDataHandler = (request) => {
     if (prior1 === 'harga') {
       const sql = `
       WITH fourth_important as (
-        SELECT id, harga, alamat, kota, label, kecamatan
+        SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
           FROM fake_dataset
           WHERE label = ${label} 
           ORDER BY harga
       ),third_important AS (
-          SELECT id, harga, alamat, kota, label, kecamatan
+          SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
           FROM fake_dataset
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN  ${prior2} = ${value2} AND label = ${label}
@@ -41,7 +41,7 @@ const getFilteredDataHandler = (request) => {
           END
           ORDER BY harga
       ), second_important AS(
-        SELECT id, harga, alamat, kota, label, kecamatan
+        SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
           FROM fake_dataset
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label}
@@ -49,7 +49,7 @@ const getFilteredDataHandler = (request) => {
           END
           ORDER BY harga
       ), first_important AS (
-          SELECT id, harga, alamat, kota, label, kecamatan
+          SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
           FROM fake_dataset
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label} AND ${prior1} <= ${value1}
@@ -76,12 +76,12 @@ const getFilteredDataHandler = (request) => {
     if (prior1 === 'kota' || prior1 === 'kecamatan') {
       const sql = `
       WITH third_important AS (
-        SELECT id, harga, alamat, kota, label, kecamatan
+        SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
         FROM fake_dataset
         WHERE label = ${label} 
         ORDER BY harga
     ), second_important AS(
-      SELECT id, harga, alamat, kota, label, kecamatan
+      SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
         FROM fake_dataset
         WHERE CASE 
           WHEN ${prior2} IS NULL THEN label = ${label}
@@ -89,7 +89,7 @@ const getFilteredDataHandler = (request) => {
         END
         ORDER BY harga
     ), first_important AS (
-        SELECT id, harga, alamat, kota, label, kecamatan
+        SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
         FROM fake_dataset
         WHERE CASE 
           WHEN ${prior2} IS NULL THEN ${prior1} = ${value1} AND label = ${label}
