@@ -12,6 +12,7 @@ import io.github.c23pr487.lapakin.model.LapakCard
 import io.github.c23pr487.lapakin.model.UserPreference
 import io.github.c23pr487.lapakin.repository.LapakCardRepository
 import io.github.c23pr487.lapakin.repository.ProfileRepository
+import io.github.c23pr487.lapakin.utils.encloseWithSingleQuotes
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,8 +25,8 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
     private val _lapaks = MutableLiveData<List<LapakCard>>()
     val lapaks: LiveData<List<LapakCard>> = _lapaks
 
-    private val _message = MutableLiveData<Int>()
-    val message: LiveData<Int> = _message
+    private val _message = MutableLiveData<Int?>()
+    val message: LiveData<Int?> = _message
 
     init {
         getPreferenceLapak()
@@ -41,9 +42,9 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
                         repository.getFilteredLapakByPreference(
                             formatLabel(userPreference?.label),
                             "kecamatan",
-                            userPreference?.subdistrict,
+                            userPreference?.subdistrict.encloseWithSingleQuotes(),
                             "kota",
-                            userPreference?.city,
+                            userPreference?.city.encloseWithSingleQuotes(),
                             "harga",
                             if (userPreference?.maxPrice == null) null else userPreference.maxPrice.toString()
                         ).enqueue(object: Callback<List<LapakCard>> {
@@ -54,20 +55,25 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
                                 if (!response.isSuccessful) {
                                     _message.value = R.string.problem_encountered_home
                                     _isLoading.value = false
+                                    _lapaks.value = listOf()
                                     return
                                 }
                                 val lapaksResponse = response.body() ?: listOf()
                                 if (lapaksResponse.isEmpty()) {
                                     _message.value = R.string.no_lapak_found
                                     _isLoading.value = false
+                                    _lapaks.value = listOf()
                                     return
                                 }
+                                _message.value = null
                                 _lapaks.value = lapaksResponse
                                 _isLoading.value = false
                             }
 
                             override fun onFailure(call: Call<List<LapakCard>>, t: Throwable) {
                                 _message.value = R.string.problem_encountered_home
+                                _lapaks.value = listOf()
+                                _isLoading.value = false
                             }
 
                         })
@@ -77,6 +83,8 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
 
             override fun onCancelled(error: DatabaseError) {
                 _message.value = R.string.problem_encountered_home
+                _isLoading.value = false
+                _lapaks.value = listOf()
             }
 
         })
@@ -89,14 +97,17 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
                 if (!response.isSuccessful) {
                     _message.value = R.string.problem_encountered_home
                     _isLoading.value = false
+                    _lapaks.value = listOf()
                     return
                 }
                 val lapaksResponse = response.body() ?: listOf()
                 if (lapaksResponse.isEmpty()) {
                     _message.value = R.string.no_lapak_found
                     _isLoading.value = false
+                    _lapaks.value = listOf()
                     return
                 }
+                _message.value = null
                 _lapaks.value = lapaksResponse
                 _isLoading.value = false
             }
@@ -104,17 +115,19 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
             override fun onFailure(call: Call<List<LapakCard>>, t: Throwable) {
                 _message.value = R.string.problem_encountered_home
                 _isLoading.value = false
+                _lapaks.value = listOf()
             }
         })
     }
 
-    private fun formatLabel(label: String): String? {
+    private fun formatLabel(label: String?): String? {
         return when (label) {
             "Belum Menentukan" -> null
-            "Toko Kopi" ->
+            "Toko Kopi" -> "toko_kopi"
+            "Usaha Makanan" -> "usaha_makanan"
             else -> null
 
-        }
+        }.encloseWithSingleQuotes()
     }
 
     @Suppress("UNCHECKED_CAST")

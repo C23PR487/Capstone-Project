@@ -6,9 +6,13 @@ import android.icu.number.NumberFormatter
 import android.net.Uri
 import android.util.TypedValue
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
+import io.github.c23pr487.lapakin.R
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -42,3 +46,54 @@ val Number.toPx get() = TypedValue.applyDimension(
     TypedValue.COMPLEX_UNIT_DIP,
     this.toFloat(),
     Resources.getSystem().displayMetrics)
+
+fun String?.encloseWithSingleQuotes(): String? {
+    if (this == null) return null
+    return "'$this'"
+}
+
+fun TextView.styleLabel(label: String?, context: Context, parent: CardView) {
+    this.run {
+        when (label) {
+            "usaha_makanan" -> {
+                text = context.resources.getString(R.string.label_food)
+                parent.setCardBackgroundColor(ResourcesCompat.getColor(
+                    context.resources,
+                    R.color.primary_dark_blue,
+                    context.theme
+                ))
+                setCompoundDrawablesWithIntrinsicBounds(
+                    ResourcesCompat.getDrawable(
+                        context.resources,
+                    R.drawable.baseline_fastfood_24,
+                    context.theme
+                    ),
+                    null,
+                    null,
+                    null
+                )
+            }
+            "toko_kopi" -> {
+                text = context.resources.getString(R.string.label_coffee)
+                parent.setCardBackgroundColor(ResourcesCompat.getColor(
+                    context.resources,
+                    R.color.coffee_brown,
+                    context.theme
+                ))
+                setCompoundDrawablesWithIntrinsicBounds(
+                    ResourcesCompat.getDrawable(
+                        context.resources,
+                        R.drawable.baseline_coffee_24,
+                        context.theme
+                    ),
+                    null,
+                    null,
+                    null
+                )
+            }
+            else -> {
+
+            }
+        }
+    }
+}

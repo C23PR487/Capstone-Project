@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.LapakIn" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.LapakIn" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/primary_black</item>
@@ -9,6 +9,7 @@
         <item name="colorSurface">@color/primary_white</item>
         <item name="toolbarStyle">@style/MyToolbar</item>
         <item name="materialAlertDialogTheme">@style/MyMaterialAlertDialog</item>
+        <item name="colorControlNormal">@color/primary_white</item>
     </style>
 
     <style name="MyMaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">

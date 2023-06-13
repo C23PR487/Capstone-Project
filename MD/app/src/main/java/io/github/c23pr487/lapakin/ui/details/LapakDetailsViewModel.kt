@@ -38,7 +38,6 @@ class LapakDetailsViewModel(private val repository: LapakDetailsRepository) : Vi
                     return
                 }
                 _lapak.value = lapakResponse[0]
-                _isLoading.value = false
             }
 
             override fun onFailure(call: Call<List<Lapak>>, t: Throwable) {

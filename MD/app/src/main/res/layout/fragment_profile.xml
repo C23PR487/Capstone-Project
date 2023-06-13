@@ -267,7 +267,7 @@
             android:id="@+id/button_logout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="37dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_max_price"
@@ -277,6 +277,8 @@
             android:textColor="@color/primary_white"
             app:strokeColor="@color/primary_white"
             app:strokeWidth="3dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

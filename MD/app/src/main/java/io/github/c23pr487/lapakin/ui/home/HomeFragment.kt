@@ -60,10 +60,12 @@ class HomeFragment : Fragment() {
         }
         viewModel.message.observe(viewLifecycleOwner) {resourceId ->
             val length = when (resourceId) {
-                R.string.problem_encountered_home, R.string.no_lapak_found -> Snackbar.LENGTH_INDEFINITE
+                R.string.problem_encountered_home, R.string.no_lapak_found -> Snackbar.LENGTH_LONG
                 else -> Snackbar.LENGTH_SHORT
             }
-            Snackbar.make(binding.root, resourceId, length).show()
+            if (resourceId != null) {
+                Snackbar.make(binding.root, resourceId, length).show()
+            }
         }
         viewModel.lapaks.observe(viewLifecycleOwner) {lapaks ->
             binding.recyclerView.adapter = LapakAdapter(lapaks)
