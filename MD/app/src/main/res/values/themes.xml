@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.LapakIn" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -6,7 +6,44 @@
         <item name="colorPrimary">@color/primary_black</item>
         <item name="colorOnPrimary">@color/primary_white</item>
         <item name="colorOnSurface">@color/primary_white</item>
+        <item name="colorSurface">@color/primary_white</item>
         <item name="toolbarStyle">@style/MyToolbar</item>
+        <item name="materialAlertDialogTheme">@style/MyMaterialAlertDialog</item>
+    </style>
+
+    <style name="MyMaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MyPositiveButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyNegativeButton</item>
+    </style>
+    
+    <style name="MyPositiveButton" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="backgroundTint">@color/primary_light_red</item>
+        <item name="fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
+
+    <style name="MyNegativeButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textColor">@color/primary_light_red</item>
+        <item name="strokeColor">@color/primary_light_red</item>
+        <item name="strokeWidth">3dp</item>
+    </style>
+
+    <style name="FilterButtonTextAppearance.BottomAppBar">
+        <item name="android:textColor">@color/primary_dark_blue</item>
+    </style>
+
+    <style name="FilterButtonTextAppearance.BottomAppBar.Active">
+        <item name="android:textColor">@color/primary_light_red</item>
+    </style>
+
+    <style name="BottomAppBarIndicatorStyle">
+        <item name="android:backgroundTint">@color/primary_light_red</item>
     </style>
 
     <style name="MyToolbar" parent="Widget.Material3.Toolbar">
@@ -42,11 +79,20 @@
         <item name="fontFamily">@font/sriracha_regular</item>
     </style>
 
+    <style name="Theme.LapakIn.Bold" parent="Base.Theme.LapakIn">
+        <item name="fontFamily">@font/rubik_bold</item>
+    </style>
+
     <style name="FilterButtonTextAppearance" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/secondary_light_red</item>
         <item name="fontFamily">@font/rubik_semi_bold</item>
         <item name="android:fontFamily">@font/rubik_semi_bold</item>
+    </style>
+
+    <style name="FilterButtonTextAppearance.Profile" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primary_white</item>
     </style>
 
     <style name="LapakCard.TextAppearance.Title" parent="TextAppearance.Material3.TitleSmall">
@@ -72,5 +118,48 @@
         <item name="fontFamily">@font/rubik_regular</item>
         <item name="android:fontFamily">@font/rubik_regular</item>
         <item name="android:textColor">@color/primary_gray</item>
+    </style>
+    
+    <style name="ComponentTitleTextAppearance" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="fontFamily">@font/rubik_bold</item>
+    </style>
+
+    <style name="ComponentTitleTextAppearance.Profile">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
+    <style name="ComponentBodyTextAppearance" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ComponentBodyTextAppearance.SellerInfo">
+        <item name="android:textSize">10sp</item>
+    </style>
+    
+    <style name="ComponentBodyTextAppearance.ShowMore">
+        <item name="android:textColor">@color/primary_gray</item>
+    </style>
+
+    <style name="LogoutButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textAppearance">@style/ComponentTitleTextAppearance.Profile</item>
+    </style>
+
+    <style name="SavePreferenceButton" parent="ThemeOverlay.Material3.Button.ElevatedButton">
+    </style>
+    
+    <style name="Profile" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textColor">@color/primary_white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="PrefixTextAppearance" parent="TextAppearance.Material3.SearchView.Prefix">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textColor">@color/primary_black</item>
     </style>
 </resources>

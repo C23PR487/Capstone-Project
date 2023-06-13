@@ -41,11 +41,6 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Firebase.auth.signOut()
-        requireActivity().startActivity(
-            Intent(requireActivity(), AuthenticationActivity::class.java)
-        )
-        requireActivity().finish()
     }
 
     override fun onDestroyView() {

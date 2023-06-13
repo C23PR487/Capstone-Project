@@ -15,10 +15,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.ActivityAuthenticationBinding
@@ -56,9 +59,10 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        Firebase.auth.currentUser?.let {user ->
+            updateUI(user)
+        }
         fillInLogoTextView()
-
-        updateUI(auth.currentUser)
 
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -108,20 +112,34 @@ class AuthenticationActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+                    if (task.result.additionalUserInfo?.isNewUser == true) {
+                        updateUI(user, true)
+                        return@addOnCompleteListener
+                    }
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     updateUI(null)
                 }
+
             }
     }
 
-    private fun updateUI(currentUser: FirebaseUser?) {
-        if (currentUser != null){
+    private fun updateUI(currentUser: FirebaseUser?, newUser: Boolean = false) {
+        if (currentUser != null && !newUser){
             startActivity(Intent(this@AuthenticationActivity, MainActivity::class.java))
             finish()
+            return
         }
+
+        if (currentUser != null) {
+            startActivity(Intent(this, PreferencesActivity::class.java))
+            finish()
+            return
+        }
+
+        Snackbar.make(this, binding.root, getString(R.string.login_failed_message), Snackbar.LENGTH_SHORT).show()
     }
 
     companion object {
