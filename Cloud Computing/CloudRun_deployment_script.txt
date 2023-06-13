@@ -1,0 +1,18 @@
+git clone https://github.com/C23PR487/Capstone-Project.git
+
+#build image
+gcloud builds submit --tag gcr.io/lapakin/hapi
+
+#deploy hapi backend
+gcloud run deploy hapi \
+  --image gcr.io/lapakin/hapi \
+  --platform managed \
+  --region asia-southeast2 \
+  --no-allow-unauthenticated \
+  --max-instances=1
+
+SERVICE_URL=$(gcloud beta run services describe hapi --platform managed --region asia-southeast2 --format="value(status.url)")
+
+echo $SERVICE_URL
+
+curl -X POST $SERVICE_URL
