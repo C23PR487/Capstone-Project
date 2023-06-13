@@ -1,10 +1,10 @@
-/* const mysql = require('mysql');
+const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: '34.134.166.13',
   user: 'root',
-  password: '',
-  database: 'db_lapakin',
+  password: '2Q?n#GSc1oq,>c;a',
+  database: 'database-lapak',
 });
 
 db.connect((err) => {
@@ -13,4 +13,3 @@ db.connect((err) => {
 });
 
 module.exports = db;
- */

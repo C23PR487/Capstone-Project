@@ -1,14 +1,14 @@
 const { nanoid } = require('nanoid');
 const db = require('./db_config');
 
-const getTestServerHandler = () => Promise((resolve) => {
-  resolve({ message: '202-test-success!' });
+const getTestServerHandler = () => new Promise((resolve) => {
+  resolve({ message: 'Bisa nih aman!' });
 });
 
 // Retrieve all data in database
 const getAllDataHandler = () => (
   new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM lapak_lapakin';
+    const sql = 'SELECT * FROM fake_dataset';
     db.query(sql, (error, results) => {
       if (error) {
         reject(error);
@@ -29,12 +29,12 @@ const getFilteredDataHandler = (request) => {
       const sql = `
       WITH fourth_important as (
         SELECT id, harga, alamat, kota, label, kecamatan
-          FROM test_lapakin
+          FROM fake_dataset
           WHERE label = ${label} 
           ORDER BY harga
       ),third_important AS (
           SELECT id, harga, alamat, kota, label, kecamatan
-          FROM test_lapakin
+          FROM fake_dataset
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN  ${prior2} = ${value2} AND label = ${label}
             ELSE ${prior2} = ${value2} AND ${prior3} = ${value3} AND label = ${label} 
@@ -42,7 +42,7 @@ const getFilteredDataHandler = (request) => {
           ORDER BY harga
       ), second_important AS(
         SELECT id, harga, alamat, kota, label, kecamatan
-          FROM test_lapakin
+          FROM fake_dataset
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label}
             ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${value1}
@@ -50,7 +50,7 @@ const getFilteredDataHandler = (request) => {
           ORDER BY harga
       ), first_important AS (
           SELECT id, harga, alamat, kota, label, kecamatan
-          FROM test_lapakin
+          FROM fake_dataset
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label} AND ${prior1} <= ${value1}
             ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${value1}
@@ -77,12 +77,12 @@ const getFilteredDataHandler = (request) => {
       const sql = `
       WITH third_important AS (
         SELECT id, harga, alamat, kota, label, kecamatan
-        FROM test_lapakin
+        FROM fake_dataset
         WHERE label = ${label} 
         ORDER BY harga
     ), second_important AS(
       SELECT id, harga, alamat, kota, label, kecamatan
-        FROM test_lapakin
+        FROM fake_dataset
         WHERE CASE 
           WHEN ${prior2} IS NULL THEN label = ${label}
           ELSE ${prior1} = ${value1} AND ${prior2} != ${value2} AND label = ${label}
@@ -90,7 +90,7 @@ const getFilteredDataHandler = (request) => {
         ORDER BY harga
     ), first_important AS (
         SELECT id, harga, alamat, kota, label, kecamatan
-        FROM test_lapakin
+        FROM fake_dataset
         WHERE CASE 
           WHEN ${prior2} IS NULL THEN ${prior1} = ${value1} AND label = ${label}
           ELSE ${prior1} = ${value1} AND ${prior2} = ${value2} AND label = ${label} 
@@ -117,7 +117,7 @@ const getFilteredDataHandler = (request) => {
 const getDataByIdHandler = (request) => {
   const { id } = request.params;
   return new Promise((resolve, reject) => {
-    const sql = `SELECT * FROM test_lapakin WHERE id ='${id}'`;
+    const sql = `SELECT * FROM fake_dataset WHERE id ='${id}'`;
     db.query(sql, (error, results) => {
       if (error) {
         reject(error);
@@ -140,7 +140,7 @@ const addDataHandler = (request) => {
         harga, luasBangunan, alamat, kota, kecamatan, urlThumbnail, label,
       } = obj;
 
-      const sql = `INSERT INTO lapak_lapakin (
+      const sql = `INSERT INTO fake_dataset (
         id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
         harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label) 
         VALUES (
