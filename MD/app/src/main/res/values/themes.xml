@@ -164,6 +164,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Profile.FilterBottomSheet">
+        <item name="android:textColor">@color/primary_black</item>
+    </style>
+
     <style name="PrefixTextAppearance" parent="TextAppearance.Material3.SearchView.Prefix">
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/rubik_regular</item>

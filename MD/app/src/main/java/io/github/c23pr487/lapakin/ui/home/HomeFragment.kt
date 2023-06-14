@@ -1,6 +1,7 @@
 package io.github.c23pr487.lapakin.ui.home
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.FragmentHomeBinding
+import io.github.c23pr487.lapakin.model.UserPreference
 import io.github.c23pr487.lapakin.ui.details.LapakDetailsActivity
 
 class HomeFragment : Fragment() {
@@ -45,6 +47,10 @@ class HomeFragment : Fragment() {
         binding.recyclerView.addItemDecoration(MyItemDecorator())
 
         binding.buttonFilter.setOnClickListener {
+            if (parentFragmentManager.findFragmentByTag(FilterBottomSheetFragment::class.java.simpleName) != null) {
+                return@setOnClickListener
+            }
+
             val bottomSheet = FilterBottomSheetFragment().apply {
                 arguments = Bundle().apply {
                     viewModel.filterMode.value?.let { notNullFilterMode ->
@@ -54,10 +60,15 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-            bottomSheet.show(parentFragmentManager, null)
+            bottomSheet.show(parentFragmentManager, bottomSheet.javaClass.simpleName)
             bottomSheet.setFragmentResultListener(FilterBottomSheetFragment.MY_REQUEST_KEY) {_, result ->
                 viewModel.changeFilterMode(result.getInt(FilterBottomSheetFragment.EXTRA_RADIO_BUTTON_ID))
-                viewModel.updateLapaks()
+                viewModel.updateLapaks(if (Build.VERSION.SDK_INT < 33) {
+                    result.getParcelable<UserPreference>(FilterBottomSheetFragment.EXTRA_USER_PREFERENCE)
+                } else {
+                    result.getParcelable(FilterBottomSheetFragment.EXTRA_USER_PREFERENCE, UserPreference::class.java)
+                }, priors = ArrayList(result.getStringArrayList(FilterBottomSheetFragment.EXTRA_PRIORITIES) ?: ArrayList())
+                )
             }
         }
 

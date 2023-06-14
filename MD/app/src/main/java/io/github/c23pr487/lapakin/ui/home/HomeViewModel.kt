@@ -35,10 +35,11 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
         updateLapaks()
     }
 
-    fun updateLapaks() {
+    fun updateLapaks(userPreference: UserPreference? = null, priors: ArrayList<String> = ArrayList(listOf("kecamatan", "kota", "harga"))) {
         when (_filterMode.value) {
             R.id.radio_button_preference -> getPreferenceLapak()
             R.id.radio_button_all -> getAllLapak()
+            R.id.radio_button_custom -> makeFilterRequestWithPreference(userPreference, priors)
             else -> Unit
         }
     }
@@ -50,44 +51,15 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
                 if (snapshot.exists()) {
                     for (childSnapshot in snapshot.children) {
                         val userPreference = childSnapshot.getValue(UserPreference::class.java)
-                        repository.getFilteredLapakByPreference(
-                            formatLabel(userPreference?.label),
-                            "kecamatan",
-                            userPreference?.subdistrict.encloseWithSingleQuotes(),
-                            "kota",
-                            userPreference?.city.encloseWithSingleQuotes(),
-                            "harga",
-                            if (userPreference?.maxPrice == null) null else userPreference.maxPrice.toString()
-                        ).enqueue(object: Callback<List<LapakCard>> {
-                            override fun onResponse(
-                                call: Call<List<LapakCard>>,
-                                response: Response<List<LapakCard>>
-                            ) {
-                                if (!response.isSuccessful) {
-                                    _message.value = R.string.problem_encountered_home
-                                    _isLoading.value = false
-                                    _lapaks.value = listOf()
-                                    return
-                                }
-                                val lapaksResponse = response.body() ?: listOf()
-                                if (lapaksResponse.isEmpty()) {
-                                    _message.value = R.string.no_lapak_found
-                                    _isLoading.value = false
-                                    _lapaks.value = listOf()
-                                    return
-                                }
-                                _message.value = null
-                                _lapaks.value = lapaksResponse
-                                _isLoading.value = false
+                        val priors = listOf("kecamatan", "kota", "harga").sortedWith(compareBy(nullsLast()) {
+                            when (it) {
+                                "kecamatan" -> userPreference?.subdistrict
+                                "kota" -> userPreference?.city
+                                "label" -> userPreference?.label
+                                else -> null
                             }
-
-                            override fun onFailure(call: Call<List<LapakCard>>, t: Throwable) {
-                                _message.value = R.string.problem_encountered_home
-                                _lapaks.value = listOf()
-                                _isLoading.value = false
-                            }
-
                         })
+                        makeFilterRequestWithPreference(userPreference, ArrayList(priors))
                     }
                 }
             }
@@ -129,6 +101,58 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
                 _lapaks.value = listOf()
             }
         })
+    }
+
+    private fun makeFilterRequestWithPreference(userPreference: UserPreference?, priors: ArrayList<String> = ArrayList(listOf("kecamatan", "kota", "harga"))) {
+        repository.getFilteredLapakByPreference(
+            formatLabel(userPreference?.label),
+            priors[0],
+            selectAttributeFromPrior(userPreference, priors[0]),
+            priors[1],
+            selectAttributeFromPrior(userPreference, priors[1]),
+            priors[2],
+            selectAttributeFromPrior(userPreference, priors[2]),
+
+        ).enqueue(object: Callback<List<LapakCard>> {
+            override fun onResponse(
+                call: Call<List<LapakCard>>,
+                response: Response<List<LapakCard>>
+            ) {
+                if (!response.isSuccessful) {
+                    _message.value = R.string.problem_encountered_home
+                    _isLoading.value = false
+                    _lapaks.value = listOf()
+                    return
+                }
+                val lapaksResponse = response.body() ?: listOf()
+                if (lapaksResponse.isEmpty()) {
+                    _message.value = R.string.no_lapak_found
+                    _isLoading.value = false
+                    _lapaks.value = listOf()
+                    return
+                }
+                _message.value = null
+                _lapaks.value = lapaksResponse
+                _isLoading.value = false
+            }
+
+            override fun onFailure(call: Call<List<LapakCard>>, t: Throwable) {
+                _message.value = R.string.problem_encountered_home
+                _lapaks.value = listOf()
+                _isLoading.value = false
+            }
+
+        })
+    }
+
+    private fun selectAttributeFromPrior(userPreference: UserPreference?, prior: String): String? {
+        return when (prior) {
+            "kota" -> userPreference?.city?.encloseWithSingleQuotes()
+            "harga" -> if (userPreference?.maxPrice == null) null else userPreference.maxPrice.toString()
+            "kecamatan" -> userPreference?.subdistrict.encloseWithSingleQuotes()
+            else -> null
+
+        }
     }
 
     private fun formatLabel(label: String?): String? {

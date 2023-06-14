@@ -21,10 +21,7 @@
     <string name="logout">Keluar</string>
     <string name="label_null">Belum Menentukan</string>
     <string name="label_coffee">Toko Kopi</string>
-    <string name="label_laundry">Usaha Laundry</string>
     <string name="label_food">Usaha Makanan</string>
-    <string name="label_clothing">Usaha Baju</string>
-    <string name="label_fotocopy">Usaha Fotokopi</string>
     <string name="city_null">Belum Menentukan</string>
     <string name="city_north_jakarta">Jakarta Utara</string>
     <string name="city_south_jakarta">Jakarta Selatan</string>
@@ -55,5 +52,6 @@
     <string name="filter_all">Semua</string>
     <string name="filter_custom">Kustom</string>
     <string name="filter_preference">Rekomendasi Untukmu</string>
+    <string name="button_filter_submit">Terapkan</string>
 </resources>
 
