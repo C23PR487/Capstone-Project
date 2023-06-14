@@ -1,5 +1,9 @@
 git clone https://github.com/C23PR487/Capstone-Project.git
 
+npm install @hapi/hapi
+npm install nanoid@3.x.x
+npm install mysql
+
 #build image
 gcloud builds submit --tag gcr.io/lapakin/hapi
 
@@ -26,6 +30,3 @@ gcloud sql connect database-lapak --user=root
 use databases;
 show databases;
 show tables;
-
-
-

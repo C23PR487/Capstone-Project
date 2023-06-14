@@ -5,10 +5,11 @@ const getTestServerHandler = () => new Promise((resolve) => {
   resolve({ message: 'Bisa nih aman!' });
 });
 
+const dbTable = 'lapak_lapakin';
 // Retrieve all data in database
 const getAllDataHandler = () => (
   new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM fake_dataset';
+    const sql = `SELECT * FROM ${dbTable}`;
     db.query(sql, (error, results) => {
       if (error) {
         reject(error);
@@ -26,15 +27,16 @@ const getFilteredDataHandler = (request) => {
   } = request.query;
   return new Promise((resolve, reject) => {
     if (prior1 === 'harga') {
+      const valueHarga = parseInt(value1, 10);
       const sql = `
       WITH fourth_important as (
         SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
-          FROM fake_dataset
+          FROM ${dbTable}
           WHERE label = ${label} 
           ORDER BY harga
       ),third_important AS (
           SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
-          FROM fake_dataset
+          FROM ${dbTable}
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN  ${prior2} = ${value2} AND label = ${label}
             ELSE ${prior2} = ${value2} AND ${prior3} = ${value3} AND label = ${label} 
@@ -42,18 +44,18 @@ const getFilteredDataHandler = (request) => {
           ORDER BY harga
       ), second_important AS(
         SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
-          FROM fake_dataset
+          FROM ${dbTable}
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label}
-            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${value1}
+            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${valueHarga}
           END
           ORDER BY harga
       ), first_important AS (
           SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
-          FROM fake_dataset
+          FROM ${dbTable}
           WHERE CASE 
-            WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label} AND ${prior1} <= ${value1}
-            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${value1}
+            WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label} AND ${prior1} <= ${valueHarga}
+            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${valueHarga}
           END
           ORDER BY harga
       )
@@ -77,12 +79,12 @@ const getFilteredDataHandler = (request) => {
       const sql = `
       WITH third_important AS (
         SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
-        FROM fake_dataset
+        FROM ${dbTable}
         WHERE label = ${label} 
         ORDER BY harga
     ), second_important AS(
       SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
-        FROM fake_dataset
+        FROM ${dbTable}
         WHERE CASE 
           WHEN ${prior2} IS NULL THEN label = ${label}
           ELSE ${prior1} = ${value1} AND ${prior2} != ${value2} AND label = ${label}
@@ -90,7 +92,7 @@ const getFilteredDataHandler = (request) => {
         ORDER BY harga
     ), first_important AS (
         SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
-        FROM fake_dataset
+        FROM ${dbTable}
         WHERE CASE 
           WHEN ${prior2} IS NULL THEN ${prior1} = ${value1} AND label = ${label}
           ELSE ${prior1} = ${value1} AND ${prior2} = ${value2} AND label = ${label} 
@@ -117,7 +119,7 @@ const getFilteredDataHandler = (request) => {
 const getDataByIdHandler = (request) => {
   const { id } = request.params;
   return new Promise((resolve, reject) => {
-    const sql = `SELECT * FROM fake_dataset WHERE id ='${id}'`;
+    const sql = `SELECT * FROM ${dbTable} WHERE id ='${id}'`;
     db.query(sql, (error, results) => {
       if (error) {
         reject(error);
@@ -140,7 +142,7 @@ const addDataHandler = (request) => {
         harga, luasBangunan, alamat, kota, kecamatan, urlThumbnail, label,
       } = obj;
 
-      const sql = `INSERT INTO fake_dataset (
+      const sql = `INSERT INTO ${dbTable} (
         id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
         harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label) 
         VALUES (

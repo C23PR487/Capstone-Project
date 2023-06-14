@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: '34.134.166.13',
+  host: '34.101.204.176',
   user: 'root',
-  password: '2Q?n#GSc1oq,>c;a',
-  database: 'database-lapak',
+  password: '$^tYr~/:0L[GXe?,',
+  database: 'db_lapakin',
 });
 
 db.connect((err) => {

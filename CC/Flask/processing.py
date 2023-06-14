@@ -10,20 +10,21 @@ from json import loads, dumps
 
 from google.cloud import storage
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'lapakin-ad94199da830.json'
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'lapakin-af53b1042c90.json'
+backEndUrl = 'https://hapi-server-2czd655sqq-et.a.run.app/stalls'
 
 # bucket_name, source_blob_name, destination_file_name
-def download_blob():
+def download_blob(data):
     """Downloads a blob from the bucket."""
 
-    # file_data = data
+    file_data = data
     # The ID of GCS bucket
-    # bucket_name = file_data["bucket"]
-    bucket_name = 'csv-bucket-lapakin'
+    bucket_name = file_data["bucket"]
+    # bucket_name = 'csv-bucket-lapakin'
 
     # The ID of GCS object
-    # source_blob_name = file_data["name"]
-    source_blob_name = 'available_stalls.csv'
+    source_blob_name = file_data["name"]
+    # source_blob_name = 'available_stalls.csv'
 
     storage_client = storage.Client()
 
@@ -37,7 +38,7 @@ def download_blob():
     data = blob.download_as_string()
     return data
 
-df_blob = download_blob()
+# df_blob = download_blob() Keperluan Test local
 
 def get_predicted_label(y_result):
   rows = y_result.shape[0]
@@ -70,18 +71,17 @@ def predict_blob(data):
 
    return classified_stalls_json 
 
-json_data = predict_blob(df_blob)
+# json_data = predict_blob(df_blob) Keperluan Test Local
 
 def upload_to_db(data):
     """Upload Spaces to database through Back-end server endpoint"""
     payload = data # (data) JSON 
-    r = requests.post('http://localhost:9000/spaces', data=payload)
+    r = requests.post(backEndUrl, data=payload) #url diganti dengan url cloud run
     print(r.json)
-    print(
-        "Request sent to the Back-end endpoint"
-    )
+    
+    return print("Request sent to the Back-end endpoint")
 
-upload_to_db(json_data)
+# upload_to_db(json_data) Keperluan Test Local
 
 def delete_blob(data):
     """Delete a blob in the bucket."""
@@ -89,9 +89,12 @@ def delete_blob(data):
     file_data = data
     # The ID of your GCS bucket
     bucket_name = file_data["bucket"]
+    # bucket_name = 'csv-bucket-lapakin'
 
     # The ID of your GCS object
     blob_name = file_data["name"]
+    # blob_name = 'available_stalls.csv'
+
 
     storage_client = storage.Client()
 
@@ -107,4 +110,6 @@ def delete_blob(data):
     # if_generation_match=generation_match_precondition
     blob.delete()
 
-    print(f"Blob {blob_name} deleted.")
+    return print("Blob {blob_name} deleted.")
+
+# delete_blob() Keperluan test
