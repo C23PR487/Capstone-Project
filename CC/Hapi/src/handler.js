@@ -140,7 +140,7 @@ const addDataHandler = (request) => {
         harga, luasBangunan, alamat, kota, kecamatan, urlThumbnail, label,
       } = obj;
 
-      const sql = `INSERT INTO fake_dataset (
+      const sql = `INSERT INTO lapak_lapakin (
         id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
         harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label) 
         VALUES (

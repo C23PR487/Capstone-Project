@@ -48,11 +48,11 @@ def index():
             return f"Bad Request: {msg}", 400
 
         try:
-            processing.download_blob(data) # Data Retrieve ke /tmp/nama_file
-            json_data = processing.predict_blob() # fungsi ML disini (sebelum return) dan usahakan terdapat validasi data 
-            processing.upload_to_db(json_data) # (data) diganti dengan variable penampung hasil prediksi format json
-            processing.delete_blob(data) # (data) berisikan sama dengan data di function download_blob
-            return ("", 204)
+            df_blob = processing.download_blob(data) 
+            json_data = processing.predict_blob(df_blob) 
+            processing.upload_to_db(json_data) 
+            processing.delete_blob(data) 
+            return ("Download, Predict, Upload dan Delete berhasil dijalankan.", 204)
 
         except Exception as e:
             print(f"error: {e}")
