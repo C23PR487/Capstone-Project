@@ -2,11 +2,17 @@ package io.github.c23pr487.lapakin.ui.auth
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
+import android.text.style.TypefaceSpan
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
@@ -62,7 +68,8 @@ class AuthenticationActivity : AppCompatActivity() {
         Firebase.auth.currentUser?.let {user ->
             updateUI(user)
         }
-        fillInLogoTextView()
+
+        drawUxWriting()
 
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -77,25 +84,54 @@ class AuthenticationActivity : AppCompatActivity() {
         }
     }
 
-    private fun fillInLogoTextView() {
-        val appLogoSpannableString = SpannableString(resources.getString(R.string.app_name))
-        appLogoSpannableString.setSpan(
+    private fun drawUxWriting() {
+        val spannableString = SpannableString(getString(R.string.tagline))
+        spannableString.setSpan(
             ForegroundColorSpan(
                 ResourcesCompat.getColor(resources, R.color.primary_dark_blue, theme)
             ),
-            0,
-            5,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            18,
+            23,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        appLogoSpannableString.setSpan(
+
+        spannableString.setSpan(
             ForegroundColorSpan(
                 ResourcesCompat.getColor(resources, R.color.primary_light_red, theme)
             ),
-            5,
-            7,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            23,
+            25,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        binding.textViewAppName.text = appLogoSpannableString
+
+        spannableString.setSpan(
+            StyleSpan(Typeface.ITALIC),
+            18,
+            25,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        val typeface = ResourcesCompat.getFont(this, R.font.sriracha_regular)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            typeface?.let {
+                spannableString.setSpan(
+                    TypefaceSpan(it),
+                    18,
+                    25,
+                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+
+        spannableString.setSpan(
+            RelativeSizeSpan(1.2f),
+            18,
+            25,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        binding.textViewTagline.text = spannableString
 
     }
 

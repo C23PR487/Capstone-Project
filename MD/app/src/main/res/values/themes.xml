@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.LapakIn" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.LapakIn" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/primary_black</item>
@@ -9,6 +9,7 @@
         <item name="colorSurface">@color/primary_white</item>
         <item name="toolbarStyle">@style/MyToolbar</item>
         <item name="materialAlertDialogTheme">@style/MyMaterialAlertDialog</item>
+        <item name="colorControlNormal">@color/primary_white</item>
     </style>
 
     <style name="MyMaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
@@ -32,6 +33,12 @@
         <item name="android:textColor">@color/primary_light_red</item>
         <item name="strokeColor">@color/primary_light_red</item>
         <item name="strokeWidth">3dp</item>
+    </style>
+
+    <style name="FilterBottomSheetTextAppearance" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="FilterButtonTextAppearance.BottomAppBar">
@@ -155,6 +162,10 @@
         <item name="android:fontFamily">@font/rubik_semi_bold</item>
         <item name="android:textColor">@color/primary_white</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Profile.FilterBottomSheet">
+        <item name="android:textColor">@color/primary_black</item>
     </style>
 
     <style name="PrefixTextAppearance" parent="TextAppearance.Material3.SearchView.Prefix">

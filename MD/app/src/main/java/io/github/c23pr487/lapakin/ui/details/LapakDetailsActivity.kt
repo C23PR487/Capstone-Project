@@ -2,23 +2,24 @@ package io.github.c23pr487.lapakin.ui.details
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.ActivityLapakDetailsBinding
 import io.github.c23pr487.lapakin.model.Lapak
 import io.github.c23pr487.lapakin.utils.getLatLng
+import io.github.c23pr487.lapakin.utils.loadImageWithUrl
+import io.github.c23pr487.lapakin.utils.styleLabel
 import io.github.c23pr487.lapakin.utils.toIdr
 
 class LapakDetailsActivity : AppCompatActivity() {
@@ -26,49 +27,15 @@ class LapakDetailsActivity : AppCompatActivity() {
         ActivityLapakDetailsBinding.inflate(layoutInflater)
     }
 
-    private val lapak by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(EXTRA_LAPAK, Lapak::class.java)
-        } else {
-            intent.getParcelableExtra(EXTRA_LAPAK)
-        }
+    private val id by lazy {
+        intent.getStringExtra(EXTRA_ID) ?: ""
     }
 
-    private val callback = OnMapReadyCallback { googleMap ->
-        val url = lapak?.gmapsUrl
-        googleMap.setOnMapLoadedCallback {
-            val latLng = url?.getLatLng() as LatLng
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16F))
-            googleMap.addMarker(MarkerOptions()
-                .position(latLng)
-                .title(lapak?.name)
-            )
-        }
-        googleMap.uiSettings.apply {
-            isMapToolbarEnabled = false
-            isRotateGesturesEnabled = false
-            isScrollGesturesEnabled = false
-            isTiltGesturesEnabled = false
-            isZoomGesturesEnabled = false
-            isScrollGesturesEnabledDuringRotateOrZoom = false
-        }
-
-        googleMap.setOnMapClickListener {
-            val latLng = lapak?.gmapsUrl?.getLatLng()
-            val lat = latLng?.latitude
-            val long = latLng?.longitude
-            val uri = Uri.parse("geo:${lat},${long}?z=20&q=$lat, $long(${lapak?.name})")
-            Log.d("A", uri.toString())
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            Log.d("Details", "${intent.resolveActivity(packageManager)}")
-            intent.resolveActivity(packageManager)?.let {
-                startActivity(intent)
-            }
-        }
-
+    private val viewModel: LapakDetailsViewModel by viewModels {
+        LapakDetailsViewModel.Factory(id)
     }
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -78,10 +45,7 @@ class LapakDetailsActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
         }
 
-        makeMap()
-
-        updateUI(lapak as Lapak)
-
+        listenToViewModel()
         setShowMoreListener()
     }
 
@@ -91,21 +55,39 @@ class LapakDetailsActivity : AppCompatActivity() {
                 finish()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun makeMap() {
-        val fragment = binding.fragmentMapsView.getFragment() as SupportMapFragment?
-        fragment?.getMapAsync(callback)
+    private fun listenToViewModel() {
+        viewModel.isLoading.observe(this) { isLoading ->
+            binding.circularProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.message.observe(this) { resourceId ->
+            val length = when (resourceId) {
+                R.string.problem_encountered_home, R.string.no_lapak_found -> Snackbar.LENGTH_INDEFINITE
+                else -> Snackbar.LENGTH_SHORT
+            }
+            Snackbar.make(binding.root, resourceId, length).show()
+        }
+        viewModel.lapak.observe(this) { lapak ->
+            updateUI(lapak)
+            makeMap(lapak)
+        }
     }
 
     private fun updateUI(lapak: Lapak) {
         binding.textViewDescriptionContent.text = lapak.description
-        binding.imageViewThumbnail.setImageResource(R.drawable.page_background)
-        binding.textViewInfoPrice.text = resources.getString(R.string.price, lapak.price.toIdr())
-        binding.textViewInfoBody.text = resources.getString(R.string.lapak_sale_info, lapak.buildingArea, lapak.address)
-        binding.textViewInfoLabel.text = lapak.label
+        lapak.pictureUrl?.let {
+            binding.imageViewThumbnail.loadImageWithUrl(it, this)
+        }
+        binding.textViewInfoPrice.text =
+            resources.getString(R.string.price, lapak.price?.toIntOrNull()?.toIdr())
+        binding.textViewInfoBody.text =
+            resources.getString(R.string.lapak_sale_info, lapak.buildingArea, lapak.address)
+        binding.textViewInfoLabel.styleLabel(lapak.label, this, binding.cardViewLabel)
         binding.textViewSellerName.text = lapak.sellerName ?: "-"
         binding.textViewSellerPhone.text = lapak.sellerPhoneNumber ?: "-"
 
@@ -117,6 +99,50 @@ class LapakDetailsActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun makeMap(lapak: Lapak) {
+        val callback = OnMapReadyCallback { googleMap ->
+            val url = lapak.gmapsUrl
+            googleMap.setOnMapLoadedCallback {
+                val latLng = url?.getLatLng()
+                latLng?.let {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 16F))
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(it)
+                            .title(lapak.name)
+                    )
+                }
+                binding.circularProgressBar.visibility = View.GONE
+            }
+            googleMap.uiSettings.apply {
+                isMapToolbarEnabled = false
+                isRotateGesturesEnabled = false
+                isScrollGesturesEnabled = false
+                isTiltGesturesEnabled = false
+                isZoomGesturesEnabled = false
+                isScrollGesturesEnabledDuringRotateOrZoom = false
+            }
+
+            googleMap.setOnMapClickListener {
+                val latLng = lapak.gmapsUrl?.getLatLng()
+                latLng?.let {
+                    val lat = it.latitude
+                    val long = it.longitude
+                    val uri = Uri.parse("geo:${lat},${long}?z=20&q=$lat, $long(${lapak.name})")
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    intent.resolveActivity(packageManager)?.let {
+                        startActivity(intent)
+                    }
+                }
+
+            }
+
+        }
+
+        val fragment = binding.fragmentMapsView.getFragment() as SupportMapFragment?
+        fragment?.getMapAsync(callback)
     }
 
     private fun setShowMoreListener() {
@@ -138,10 +164,12 @@ class LapakDetailsActivity : AppCompatActivity() {
                 binding.textViewDescriptionContent.maxLines = 5
                 View.VISIBLE
             }
+
             View.VISIBLE -> {
                 binding.textViewDescriptionContent.maxLines = Integer.MAX_VALUE
                 View.GONE
             }
+
             else -> View.GONE
         }
 
@@ -149,6 +177,6 @@ class LapakDetailsActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_LAPAK = "extra_lapak"
+        const val EXTRA_ID = "extra_id"
     }
 }

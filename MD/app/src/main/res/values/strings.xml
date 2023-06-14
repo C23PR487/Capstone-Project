@@ -2,18 +2,17 @@
     <string name="app_name">LapakIn</string>
     <string name="recommend_text">Rekomendasi Untukmu</string>
     <string name="see_details">Lihat selengkapnya…</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_dashboard">Riset Pasar</string>
     <string name="sign_in_google">Masuk dengan Google</string>
-    <string name="tagline">suatu UX writing, tagline, atau semacamnya, something2…</string>
+    <string name="tagline">Cari lapak usaha? LapakIn aja ;)</string>
     <string name="lapak_details_title">Lapak</string>
     <string name="description_title">Deskripsi</string>
     <string name="show_more_message">Baca Selengkapnya</string>
     <string name="price">%s\nper bulan</string>
     <string name="lapak_sale_info">Luas : %s\nTipe : Sewa\nAlamat :\n%s</string>
     <string name="seller_title">Hubungi Penjual</string>
-    <string name="title_profile">Profile</string>
+    <string name="title_profile">Profil</string>
     <string name="profile_email_title">Email</string>
     <string name="profile_preference_title">Preferensi Lapak</string>
     <string name="label">Jenis Usaha</string>
@@ -22,10 +21,7 @@
     <string name="logout">Keluar</string>
     <string name="label_null">Belum Menentukan</string>
     <string name="label_coffee">Toko Kopi</string>
-    <string name="label_laundry">Usaha Laundry</string>
     <string name="label_food">Usaha Makanan</string>
-    <string name="label_clothing">Usaha Baju</string>
-    <string name="label_fotocopy">Usaha Fotokopi</string>
     <string name="city_null">Belum Menentukan</string>
     <string name="city_north_jakarta">Jakarta Utara</string>
     <string name="city_south_jakarta">Jakarta Selatan</string>
@@ -51,5 +47,11 @@
     <string name="database_url">https://lapakin-d5982-default-rtdb.asia-southeast1.firebasedatabase.app</string>
     <string name="save_buttom_message">Simpan</string>
     <string name="preference_save_message">Simpan data?</string>
+    <string name="problem_encountered_home">Maaf, terjadi masalah koneksi ke server.</string>
+    <string name="no_lapak_found">Tidak ada lapak yang ditemukan</string>
+    <string name="filter_all">Semua</string>
+    <string name="filter_custom">Kustom</string>
+    <string name="filter_preference">Rekomendasi Untukmu</string>
+    <string name="button_filter_submit">Terapkan</string>
 </resources>
 

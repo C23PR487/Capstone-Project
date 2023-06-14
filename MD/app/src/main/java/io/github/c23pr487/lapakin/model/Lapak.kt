@@ -1,20 +1,42 @@
 package io.github.c23pr487.lapakin.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import com.google.gson.annotations.SerializedName
 
-@Parcelize
 data class Lapak(
-    val pictureUrl: String,
-    val gmapsUrl: String,
-    val name: String,
-    val description: String,
-    val price: Int,
-    val buildingArea: String,
-    val city: String,
-    val subDistrict: String,
-    val address: String,
-    val sellerName: String?,
-    val sellerPhoneNumber: String?,
-    val label: String,
-    ) : Parcelable
+
+	@field:SerializedName("kota")
+	val city: String? = null,
+
+	@field:SerializedName("maps")
+	val gmapsUrl: String? = null,
+
+	@field:SerializedName("nama_penjual")
+	val sellerName: String? = null,
+
+	@field:SerializedName("luas_bangunan")
+	val buildingArea: String? = null,
+
+	@field:SerializedName("label")
+	val label: String? = null,
+
+	@field:SerializedName("kontak_penjual")
+	val sellerPhoneNumber: String? = null,
+
+	@field:SerializedName("alamat")
+	val address: String? = null,
+
+	@field:SerializedName("harga")
+	val price: String? = null,
+
+	@field:SerializedName("url_thumbnail")
+	val pictureUrl: String? = null,
+
+	@field:SerializedName("nama_lapak")
+	val name: String? = null,
+
+	@field:SerializedName("kecamatan")
+	val subDistrict: String? = null,
+
+	@field:SerializedName("deskripsi")
+	val description: String? = null
+)
