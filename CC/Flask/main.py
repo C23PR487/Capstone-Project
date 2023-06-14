@@ -9,7 +9,6 @@ import processing
 
 app = Flask(__name__)
 
-
 @app.route("/", methods=["POST"])
 def index():
     """Receive and parse Pub/Sub messages containing Cloud Storage event data."""
@@ -49,14 +48,21 @@ def index():
             return f"Bad Request: {msg}", 400
 
         try:
-            processing.download_blob(data) # Data Retrieve ke /tmp/nama_file
-            json_data = processing.predict_blob() # fungsi ML disini (sebelum return) dan usahakan terdapat validasi data 
-            processing.upload_to_db(json_data) # (data) diganti dengan variable penampung hasil prediksi format json
-            processing.delete_blob(data) # (data) berisikan sama dengan data di function download_blob
-            return ("", 204)
+            df_blob = processing.download_blob(data) 
+            json_data = processing.predict_blob(df_blob) 
+            processing.upload_to_db(json_data) 
+            processing.delete_blob(data) 
+            return print(f"Download, Predict, Upload dan Delete berhasil dijalankan.", 200)
 
         except Exception as e:
             print(f"error: {e}")
-            return ("", 500)
+            return (f"Tidak Berhasil", 500)
 
-    return ("", 500)
+    return (f"Gagal!!!", 500)
+
+if __name__ == "__main__":
+    PORT = int(os.getenv("PORT")) if os.getenv("PORT") else 8080
+
+    # This is used when running locally. Gunicorn is used to run the
+    # application on Cloud Run. See entrypoint in Dockerfile.
+    app.run(host="127.0.0.1", port=PORT, debug=True)

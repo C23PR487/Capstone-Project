@@ -1,14 +1,15 @@
 const { nanoid } = require('nanoid');
 const db = require('./db_config');
 
-const getTestServerHandler = () => Promise((resolve) => {
-  resolve({ message: '202-test-success!' });
+const getTestServerHandler = () => new Promise((resolve) => {
+  resolve({ message: 'Bisa nih aman!' });
 });
 
+const dbTable = 'lapak_lapakin';
 // Retrieve all data in database
 const getAllDataHandler = () => (
   new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM lapak_lapakin';
+    const sql = `SELECT * FROM ${dbTable}`;
     db.query(sql, (error, results) => {
       if (error) {
         reject(error);
@@ -26,34 +27,35 @@ const getFilteredDataHandler = (request) => {
   } = request.query;
   return new Promise((resolve, reject) => {
     if (prior1 === 'harga') {
+      const valueHarga = parseInt(value1, 10);
       const sql = `
       WITH fourth_important as (
-        SELECT id, harga, alamat, kota, label, kecamatan
-          FROM test_lapakin
+        SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
+          FROM ${dbTable}
           WHERE label = ${label} 
           ORDER BY harga
       ),third_important AS (
-          SELECT id, harga, alamat, kota, label, kecamatan
-          FROM test_lapakin
+          SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
+          FROM ${dbTable}
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN  ${prior2} = ${value2} AND label = ${label}
             ELSE ${prior2} = ${value2} AND ${prior3} = ${value3} AND label = ${label} 
           END
           ORDER BY harga
       ), second_important AS(
-        SELECT id, harga, alamat, kota, label, kecamatan
-          FROM test_lapakin
+        SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
+          FROM ${dbTable}
           WHERE CASE 
             WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label}
-            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${value1}
+            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${valueHarga}
           END
           ORDER BY harga
       ), first_important AS (
-          SELECT id, harga, alamat, kota, label, kecamatan
-          FROM test_lapakin
+          SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
+          FROM ${dbTable}
           WHERE CASE 
-            WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label} AND ${prior1} <= ${value1}
-            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${value1}
+            WHEN ${prior3} IS NULL THEN ${prior2} = ${value2} AND label = ${label} AND ${prior1} <= ${valueHarga}
+            ELSE ${prior2} = ${value2} AND ${prior3} != ${value3} AND label = ${label} AND ${prior1} <= ${valueHarga}
           END
           ORDER BY harga
       )
@@ -76,21 +78,21 @@ const getFilteredDataHandler = (request) => {
     if (prior1 === 'kota' || prior1 === 'kecamatan') {
       const sql = `
       WITH third_important AS (
-        SELECT id, harga, alamat, kota, label, kecamatan
-        FROM test_lapakin
+        SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
+        FROM ${dbTable}
         WHERE label = ${label} 
         ORDER BY harga
     ), second_important AS(
-      SELECT id, harga, alamat, kota, label, kecamatan
-        FROM test_lapakin
+      SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
+        FROM ${dbTable}
         WHERE CASE 
           WHEN ${prior2} IS NULL THEN label = ${label}
           ELSE ${prior1} = ${value1} AND ${prior2} != ${value2} AND label = ${label}
         END
         ORDER BY harga
     ), first_important AS (
-        SELECT id, harga, alamat, kota, label, kecamatan
-        FROM test_lapakin
+        SELECT kota, harga, kecamatan, id, label, alamat, url_thumbnail
+        FROM ${dbTable}
         WHERE CASE 
           WHEN ${prior2} IS NULL THEN ${prior1} = ${value1} AND label = ${label}
           ELSE ${prior1} = ${value1} AND ${prior2} = ${value2} AND label = ${label} 
@@ -117,7 +119,7 @@ const getFilteredDataHandler = (request) => {
 const getDataByIdHandler = (request) => {
   const { id } = request.params;
   return new Promise((resolve, reject) => {
-    const sql = `SELECT * FROM test_lapakin WHERE id ='${id}'`;
+    const sql = `SELECT * FROM ${dbTable} WHERE id ='${id}'`;
     db.query(sql, (error, results) => {
       if (error) {
         reject(error);
@@ -140,7 +142,7 @@ const addDataHandler = (request) => {
         harga, luasBangunan, alamat, kota, kecamatan, urlThumbnail, label,
       } = obj;
 
-      const sql = `INSERT INTO lapak_lapakin (
+      const sql = `INSERT INTO ${dbTable} (
         id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
         harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label) 
         VALUES (
