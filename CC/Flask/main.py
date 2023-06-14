@@ -1,5 +1,6 @@
 import base64
 import json
+import os
 
 from flask import Flask, request
 
@@ -8,8 +9,7 @@ import processing
 
 app = Flask(__name__)
 
-
-@app.route("/stalls", methods=["POST"])
+@app.route("/", methods=["POST"])
 def index():
     """Receive and parse Pub/Sub messages containing Cloud Storage event data."""
     envelope = request.get_json()
@@ -52,10 +52,17 @@ def index():
             json_data = processing.predict_blob(df_blob) 
             processing.upload_to_db(json_data) 
             processing.delete_blob(data) 
-            return ("Download, Predict, Upload dan Delete berhasil dijalankan.", 204)
+            return print(f"Download, Predict, Upload dan Delete berhasil dijalankan.", 200)
 
         except Exception as e:
             print(f"error: {e}")
-            return ("", 500)
+            return (f"Tidak Berhasil", 500)
 
-    return ("", 500)
+    return (f"Gagal!!!", 500)
+
+if __name__ == "__main__":
+    PORT = int(os.getenv("PORT")) if os.getenv("PORT") else 8080
+
+    # This is used when running locally. Gunicorn is used to run the
+    # application on Cloud Run. See entrypoint in Dockerfile.
+    app.run(host="127.0.0.1", port=PORT, debug=True)

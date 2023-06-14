@@ -10,7 +10,8 @@ from json import loads, dumps
 
 from google.cloud import storage
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'lapakin-af53b1042c90.json'
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'lapakin-af53b1042c90.json'
+backEndUrl = 'https://hapi-server-2czd655sqq-et.a.run.app/stalls'
 
 # bucket_name, source_blob_name, destination_file_name
 def download_blob(data):
@@ -75,11 +76,10 @@ def predict_blob(data):
 def upload_to_db(data):
     """Upload Spaces to database through Back-end server endpoint"""
     payload = data # (data) JSON 
-    r = requests.post('http://localhost:9000/stalls', data=payload) #url diganti dengan url cloud run
+    r = requests.post(backEndUrl, data=payload) #url diganti dengan url cloud run
     print(r.json)
-    print(
-        "Request sent to the Back-end endpoint"
-    )
+    
+    return print("Request sent to the Back-end endpoint")
 
 # upload_to_db(json_data) Keperluan Test Local
 
@@ -110,6 +110,6 @@ def delete_blob(data):
     # if_generation_match=generation_match_precondition
     blob.delete()
 
-    print(f"Blob {blob_name} deleted.")
+    return print("Blob {blob_name} deleted.")
 
 # delete_blob() Keperluan test
