@@ -1,7 +1,6 @@
 referensi/
 available_stall_test.csv
 available_stalls.csv
-Flask_Old/
 *.json
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python

@@ -4,7 +4,7 @@ import os
 
 from flask import Flask, request
 
-import process
+import processing_predict
 
 
 app = Flask(__name__)
@@ -48,14 +48,14 @@ def index():
             return f"Bad Request: {msg}", 400
 
         try:
-            process.get_test_url()
+            processing_predict.get_test_url()
             return print(f"Download, Predict, Upload dan Delete berhasil dijalankan.", 204)
 
         except Exception as e:
             print(f"error: {e}")
-            return ("Error?", 500)
+            return ("", 500)
 
-    return ("Error2?", 500)
+    return ("", 500)
 
 if __name__ == "__main__":
     PORT = int(os.getenv("PORT")) if os.getenv("PORT") else 8080
