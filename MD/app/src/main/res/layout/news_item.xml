@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/corner_radius"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="238dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:background="@drawable/thumbnail"
+        android:backgroundTint="@color/primary_black_85_alpha"
+        android:backgroundTintMode="src_atop"
+        >
+
+        <TextView
+            android:id="@+id/text_view_article_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="This is the title of the articleThis is the content of the article\nThis is the content of the article\nThis is the content of the article\n"
+            android:textSize="24sp"
+            android:textColor="@color/primary_white"
+            app:fontFamily="@font/rubik_semi_bold"
+            android:maxLines="2"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/text_view_article_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_article_title"
+            tools:text="This is the description of the articleThis is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\n"
+            android:textSize="16sp"
+            android:textColor="@color/primary_white"
+            app:fontFamily="@font/rubik_medium"
+            android:layout_marginTop="16dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/text_view_article_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_article_description"
+            tools:text="This is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\n"
+            android:textSize="14sp"
+            android:textColor="@color/primary_white"
+            app:fontFamily="@font/rubik_regular"
+            android:layout_marginTop="16dp"
+            android:maxLines="5"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/text_view_article_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_article_content"
+            tools:text="This is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\nThis is the content of the article\n"
+            android:textSize="16sp"
+            android:textColor="@color/primary_white"
+            app:fontFamily="@font/rubik_regular"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAlignment="textEnd"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
