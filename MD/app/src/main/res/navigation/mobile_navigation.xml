@@ -12,8 +12,8 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="io.github.c23pr487.lapakin.ui.dashboard.DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="io.github.c23pr487.lapakin.ui.marketresearch.MarketResearchFragment"
+        tools:layout="@layout/fragment_market_research" />
 
     <fragment
         android:id="@+id/navigation_profile"
