@@ -13,55 +13,63 @@ import warnings
 warnings.filterwarnings("ignore")
 
 """Back-end Endpoint to upload the predicted blob data to database"""
-base_backend_url = 'http://localhost:8080'
+base_backend_url = 'https://hapi-server-nclirhjp5q-et.a.run.app'
+
 
 def get_test_url():
-   r = requests.get(base_backend_url)
-   return r.content
+    r = requests.get(base_backend_url)
+    return r.content
+
 
 def get_predicted_label(y_result):
-  """Part of the Predict Function"""
-  rows = y_result.shape[0]
-  y_pred = np.zeros(rows)
-  for row in range(rows):
-      y_pred[row] = np.argmax(y_result[row])
-  return y_pred
+    """Part of the Predict Function"""
+    rows = y_result.shape[0]
+    y_pred = np.zeros(rows)
+    for row in range(rows):
+        y_pred[row] = np.argmax(y_result[row])
+    return y_pred
+
 
 def convert_to_json(df):
-  """Output Predict Process"""
-  result = df.to_json(orient="index")
-  parsed = loads(result)
-  list = []
-  for k in parsed:
-    v=parsed[k]
-    list.append(v)
-  return dumps(list, indent=4) 
+    """Output Predict Process"""
+    result = df.to_json(orient="index")
+    parsed = loads(result)
+    list = []
+    for k in parsed:
+        v = parsed[k]
+        list.append(v)
+    return dumps(list, indent=4)
+
 
 def predict_blob(data):
-   """Main Predict Function"""
-   model = load_model('./lapakin_model.h5')
-   scaler = joblib.load('./lapakin_scaler.pkl')
-   label_encoder = joblib.load('./lapakin_encoder.pkl')
+    """Main Predict Function"""
+    model = load_model('./lapakin_model.h5')
+    scaler = joblib.load('./lapakin_scaler.pkl')
+    label_encoder = joblib.load('./lapakin_encoder.pkl')
 
-   df_stall = pd.read_csv(io.BytesIO(data), encoding= 'unicode_escape')
-   X_stall = df_stall[['jumlah mall terdekat', 'jumlah kantor terdekat', 'jumlah sekolah terdekat']]
-   X_stall= scaler.transform(X_stall)
-   y_stall = model.predict(X_stall)
-   df_stall['label'] = label_encoder.inverse_transform(get_predicted_label(y_stall).astype(int))
+    df_stall = pd.read_csv(io.BytesIO(data), encoding='unicode_escape')
+    X_stall = df_stall[['jumlah mall terdekat',
+                        'jumlah kantor terdekat', 'jumlah sekolah terdekat']]
+    X_stall = scaler.transform(X_stall)
+    y_stall = model.predict(X_stall)
+    df_stall['label'] = label_encoder.inverse_transform(
+        get_predicted_label(y_stall).astype(int))
 
-   classified_stalls_json = convert_to_json(df_stall)
-   print(classified_stalls_json)
+    classified_stalls_json = convert_to_json(df_stall)
+    print(classified_stalls_json)
 
-   return classified_stalls_json
+    return classified_stalls_json
+
 
 def upload_to_db(data):
     """Upload Stalls to database through Back-end server endpoint"""
 
-    payload = data 
-    r = requests.post(base_backend_url, data=payload) 
+    payload = data
+    r = requests.post(base_backend_url, data=payload)
     print(r.json)
-    
-    print("Request sent to the Back-end endpoint")
+
+    return print(f"Upload berhasil dijalankan.", 200)
+
 
 def delete_blob(data):
     """Delete the blob in the bucket."""
@@ -76,7 +84,8 @@ def delete_blob(data):
     blob = bucket.blob(blob_name)
     blob.delete()
 
-    print("Blob {blob_name} deleted.")
+    return print(f"Blob {blob_name} deleted.", 200)
+
 
 def process_data(data):
     """Process predict, upload and delete the blob"""
@@ -95,9 +104,7 @@ def process_data(data):
     # Predict the downloaded blob strings
     json_data = predict_blob(data_blob)
 
-    # Upload the blob 
+    # Upload the blob
+    upload_to_db(json_data)
 
-    return upload_to_db(json_data)
-
-
-
+    return delete_blob(data)

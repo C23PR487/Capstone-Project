@@ -6,8 +6,8 @@ from flask import Flask, request
 
 import process
 
-
 app = Flask(__name__)
+
 
 @app.route("/", methods=["POST"])
 def index():
@@ -49,17 +49,20 @@ def index():
 
         try:
             process.get_test_url()
-            return print(f"Download, Predict, Upload dan Delete berhasil dijalankan.", 204)
+            return ("", 204)
 
         except Exception as e:
             print(f"error: {e}")
-            return ("Error?", 500)
+            return ("", 500)
 
-    return ("Error2?", 500)
+    return ("", 500)
+
+    # [END cloudrun_imageproc_controller]
+
 
 if __name__ == "__main__":
     PORT = int(os.getenv("PORT")) if os.getenv("PORT") else 8080
 
     # This is used when running locally. Gunicorn is used to run the
     # application on Cloud Run. See entrypoint in Dockerfile.
-    app.run(host="0.0.0.0", port=PORT, debug=True)
+    app.run(host="127.0.0.1", port=PORT, debug=True)
