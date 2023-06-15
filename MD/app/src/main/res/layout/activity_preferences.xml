@@ -14,10 +14,17 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        tools:title="LapakIn"
         android:theme="@style/Theme.LapakIn.Toolbar"
         style="@style/MyToolbar"
-        />
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="23dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/toolbar_img"/>
+    </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -237,8 +244,10 @@
                 android:text="@string/button_save_message"
                 android:theme="@style/Theme.LapakIn.Bold"
                 style="@style/SavePreferenceButton"
-                app:backgroundTint="@color/primary_red"
+                app:backgroundTint="@color/primary_light_red"
                 android:textColor="@color/primary_white"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

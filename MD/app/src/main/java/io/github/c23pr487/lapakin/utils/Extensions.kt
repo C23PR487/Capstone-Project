@@ -55,17 +55,17 @@ fun String?.encloseWithSingleQuotes(): String? {
 fun TextView.styleLabel(label: String?, context: Context, parent: CardView) {
     this.run {
         when (label) {
-            "usaha_makanan" -> {
-                text = context.resources.getString(R.string.label_food)
+            "usaha_baju" -> {
+                text = context.resources.getString(R.string.label_clothes)
                 parent.setCardBackgroundColor(ResourcesCompat.getColor(
                     context.resources,
-                    R.color.primary_dark_blue,
+                    R.color.clothes_orange,
                     context.theme
                 ))
                 setCompoundDrawablesWithIntrinsicBounds(
                     ResourcesCompat.getDrawable(
                         context.resources,
-                    R.drawable.baseline_fastfood_24,
+                    R.drawable.baseline_discount_24,
                     context.theme
                     ),
                     null,

@@ -45,7 +45,7 @@ class ProfileFragment : Fragment() {
         arrayOf(
             resources.getString(R.string.label_null),
             resources.getString(R.string.label_coffee),
-            resources.getString(R.string.label_food),
+            resources.getString(R.string.label_clothes),
         )
     }
 
