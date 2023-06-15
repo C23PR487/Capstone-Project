@@ -48,7 +48,7 @@ def index():
             return f"Bad Request: {msg}", 400
 
         try:
-            process.get_test_url()
+            process.process_data(data)
             return ("", 204)
 
         except Exception as e:

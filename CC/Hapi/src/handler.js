@@ -137,21 +137,23 @@ const addDataHandler = (request) => {
   return new Promise((resolve, reject) => {
     for (let i = 0; i < data.length; i += 1) {
       const obj = data[i];
-      const id = nanoid(16);
       const {
         maps, namaLapak, deskripsi, namaPenjual, kontakPenjual,
         harga, luasBangunan, alamat, kota, kecamatan, urlThumbnail, label,
       } = obj;
-
-      const sql = `INSERT INTO ${dbTable} (
-        id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual, 
-        harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label) 
-        VALUES (
-          '${id}', '${maps}', '${namaLapak}', '${deskripsi}', '${namaPenjual}', '${kontakPenjual}', 
-          '${harga}', '${luasBangunan}', '${alamat}', '${kota}', '${kecamatan}', '${urlThumbnail}', '${label}')`;
+      const id = nanoid(16);
+      const sql = `
+      INSERT INTO lapak_lapakin (
+        id, maps, nama_lapak, deskripsi, nama_penjual, kontak_penjual,
+        harga, luas_bangunan, alamat, kota, kecamatan, url_thumbnail, label
+      ) 
+      VALUES (
+        '${id}', '${maps}', '${namaLapak}', '${deskripsi}', '${namaPenjual}', '${kontakPenjual}',
+        '${harga}', '${luasBangunan}', '${alamat}', '${kota}', '${kecamatan}', '${urlThumbnail}', '${label}')`;
       db.query(sql, (error) => {
         if (error) {
           reject(error);
+          console.log(error);
         } else {
           resolve({
             status: 'success',
