@@ -1,23 +1,17 @@
 package io.github.c23pr487.lapakin.ui.home
 
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.LapakItemBinding
 import io.github.c23pr487.lapakin.model.LapakCard
-import io.github.c23pr487.lapakin.ui.details.LapakDetailsActivity
-import io.github.c23pr487.lapakin.ui.details.LapakDetailsActivity.Companion.EXTRA_ID
 import io.github.c23pr487.lapakin.utils.loadImageWithUrl
 import io.github.c23pr487.lapakin.utils.styleLabel
 import io.github.c23pr487.lapakin.utils.toIdr
 
-class LapakAdapter(private val lapaks: List<LapakCard>, private val callback: (String?) -> Unit) : RecyclerView.Adapter<LapakAdapter.LapakViewHolder>() {
+class LapakAdapter(private val lapaks: List<LapakCard>, private val callback: (String?) -> Unit) :
+    RecyclerView.Adapter<LapakAdapter.LapakViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LapakViewHolder {
         val binding = LapakItemBinding.inflate(
@@ -37,8 +31,10 @@ class LapakAdapter(private val lapaks: List<LapakCard>, private val callback: (S
         return lapaks.size
     }
 
-    class LapakViewHolder(private val binding: LapakItemBinding,
-                          callback: (String?) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class LapakViewHolder(
+        private val binding: LapakItemBinding,
+        callback: (String?) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var lapak: LapakCard
 
@@ -54,7 +50,11 @@ class LapakAdapter(private val lapaks: List<LapakCard>, private val callback: (S
             binding.textViewPrice.text = lapak.price?.toIntOrNull()?.toIdr()
             binding.textViewArea.text = lapak.subdistrict
             binding.textViewAddress.text = lapak.address
-            binding.textViewLapakType.styleLabel(lapak.label, binding.root.context, binding.cardViewLabel)
+            binding.textViewLapakType.styleLabel(
+                lapak.label,
+                binding.root.context,
+                binding.cardViewLabel
+            )
             lapak.thumbnailUrl?.let {
                 binding.imageViewThumbnail.loadImageWithUrl(it, binding.root.context)
             }

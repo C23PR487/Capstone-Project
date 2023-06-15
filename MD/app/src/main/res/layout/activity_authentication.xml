@@ -4,60 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.AuthenticationActivity"
     android:background="@drawable/bg_accent"
     android:backgroundTint="@color/primary_black_85_alpha"
-    android:backgroundTintMode="screen">
+    android:backgroundTintMode="screen"
+    tools:context=".ui.auth.AuthenticationActivity">
+
     <ImageView
         android:id="@+id/image_view_app_logo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="143dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_view_tagline"
-        android:layout_marginBottom="16dp"
         android:layout_marginStart="55dp"
         android:layout_marginEnd="55dp"
-        app:srcCompat="@drawable/app_logo"
-        />
+        android:layout_marginBottom="16dp"
+        android:minHeight="143dp"
+        app:layout_constraintBottom_toTopOf="@id/text_view_tagline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/app_logo" />
 
     <TextView
         android:id="@+id/text_view_tagline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="@string/tagline"
-        android:theme="@style/Theme.LapakIn.Toolbar"
-        app:fontFamily="@font/rubik_regular"
-        android:fontFamily="@font/rubik_regular"
-        android:textColor="@color/primary_white"
-        android:textSize="20sp"
-        android:textAlignment="center"
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/rubik_regular"
+        android:textAlignment="center"
+        android:textColor="@color/primary_white"
+        android:textSize="20sp"
+        android:theme="@style/Theme.LapakIn.Toolbar"
+        app:fontFamily="@font/rubik_regular"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/tagline" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signInButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/sign_in_google"
-        android:backgroundTint="@color/primary_light_red"
-        app:icon="@drawable/google_logo"
-        android:textSize="18sp"
-        android:layout_marginTop="@dimen/medium_space"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_tagline"
         android:layout_marginStart="@dimen/medium_space"
+        android:layout_marginTop="@dimen/medium_space"
         android:layout_marginEnd="@dimen/medium_space"
+        android:backgroundTint="@color/primary_light_red"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        />
+        android:text="@string/sign_in_google"
+        android:textSize="18sp"
+        app:icon="@drawable/google_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_tagline" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

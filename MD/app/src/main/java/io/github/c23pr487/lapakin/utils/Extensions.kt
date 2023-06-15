@@ -2,12 +2,10 @@ package io.github.c23pr487.lapakin.utils
 
 import android.content.Context
 import android.content.res.Resources
-import android.icu.number.NumberFormatter
 import android.net.Uri
 import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
@@ -42,10 +40,12 @@ fun ImageView.loadImageWithUri(uri: Uri, context: Context) {
         .into(this)
 }
 
-val Number.toPx get() = TypedValue.applyDimension(
-    TypedValue.COMPLEX_UNIT_DIP,
-    this.toFloat(),
-    Resources.getSystem().displayMetrics)
+val Number.toPx
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics
+    )
 
 fun String?.encloseWithSingleQuotes(): String? {
     if (this == null) return null
@@ -57,29 +57,34 @@ fun TextView.styleLabel(label: String?, context: Context, parent: CardView) {
         when (label) {
             "usaha_baju" -> {
                 text = context.resources.getString(R.string.label_clothes)
-                parent.setCardBackgroundColor(ResourcesCompat.getColor(
-                    context.resources,
-                    R.color.clothes_orange,
-                    context.theme
-                ))
+                parent.setCardBackgroundColor(
+                    ResourcesCompat.getColor(
+                        context.resources,
+                        R.color.clothes_orange,
+                        context.theme
+                    )
+                )
                 setCompoundDrawablesWithIntrinsicBounds(
                     ResourcesCompat.getDrawable(
                         context.resources,
-                    R.drawable.baseline_discount_24,
-                    context.theme
+                        R.drawable.baseline_discount_24,
+                        context.theme
                     ),
                     null,
                     null,
                     null
                 )
             }
+
             "toko_kopi" -> {
                 text = context.resources.getString(R.string.label_coffee)
-                parent.setCardBackgroundColor(ResourcesCompat.getColor(
-                    context.resources,
-                    R.color.coffee_brown,
-                    context.theme
-                ))
+                parent.setCardBackgroundColor(
+                    ResourcesCompat.getColor(
+                        context.resources,
+                        R.color.coffee_brown,
+                        context.theme
+                    )
+                )
                 setCompoundDrawablesWithIntrinsicBounds(
                     ResourcesCompat.getDrawable(
                         context.resources,
@@ -91,6 +96,7 @@ fun TextView.styleLabel(label: String?, context: Context, parent: CardView) {
                     null
                 )
             }
+
             else -> {
 
             }

@@ -26,8 +26,7 @@
         <activity
             android:name=".ui.auth.PreferencesActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -46,19 +45,15 @@
         <activity
             android:name=".ui.details.LapakDetailsActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.auth.AuthenticationActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
