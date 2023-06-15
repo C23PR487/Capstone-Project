@@ -54,5 +54,7 @@
     <string name="filter_preference">Rekomendasi Untukmu</string>
     <string name="button_filter_submit">Terapkan</string>
     <string name="max_price_title_normal">Harga Maksimum</string>
+    <string name="market_research_page_title">Berita Terkini</string>
+    <string name="end_of_list_news">Sudah mencapai berita terakhir</string>
 </resources>
 
