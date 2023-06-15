@@ -1,7 +1,6 @@
 package io.github.c23pr487.lapakin.ui.marketresearch
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.google.android.material.snackbar.Snackbar
 import io.github.c23pr487.lapakin.databinding.NewsItemBinding
 import io.github.c23pr487.lapakin.model.ArticlesItem
 
@@ -24,10 +22,12 @@ class NewsAdapter(diffCallback: DiffUtil.ItemCallback<ArticlesItem>) :
         parent: ViewGroup,
         viewType: Int
     ): NewsViewHolder {
-        return NewsViewHolder(NewsItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false)
+        return NewsViewHolder(
+            NewsItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
@@ -38,35 +38,37 @@ class NewsAdapter(diffCallback: DiffUtil.ItemCallback<ArticlesItem>) :
         holder.bind(item)
     }
 
-    class NewsViewHolder(private val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class NewsViewHolder(private val binding: NewsItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(news: ArticlesItem?) {
             binding.textViewArticleAuthor.text = news?.author
             binding.textViewArticleTitle.text = news?.title
             binding.textViewArticleAuthor.text = news?.author
             binding.textViewArticleDescription.text = news?.description
-            Glide.with(binding.root.context).asDrawable().load(news?.urlToImage).addListener(object : RequestListener<Drawable> {
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    resource?.let {
-                        binding.constraintLayout.background = it
+            Glide.with(binding.root.context).asDrawable().load(news?.urlToImage)
+                .addListener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        resource?.let {
+                            binding.constraintLayout.background = it
+                        }
+                        return true
                     }
-                    return true
-                }
 
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return true
-                }
-            }).submit()
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return true
+                    }
+                }).submit()
             binding.root.setOnClickListener {
                 news?.url?.let {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))

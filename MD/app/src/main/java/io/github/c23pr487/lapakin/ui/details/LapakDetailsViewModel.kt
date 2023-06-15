@@ -24,7 +24,7 @@ class LapakDetailsViewModel(private val repository: LapakDetailsRepository) : Vi
 
     init {
         _isLoading.value = true
-        repository.getLapakDetails().enqueue(object: Callback<List<Lapak>> {
+        repository.getLapakDetails().enqueue(object : Callback<List<Lapak>> {
             override fun onResponse(call: Call<List<Lapak>>, response: Response<List<Lapak>>) {
                 if (!response.isSuccessful) {
                     _message.value = R.string.problem_encountered_home

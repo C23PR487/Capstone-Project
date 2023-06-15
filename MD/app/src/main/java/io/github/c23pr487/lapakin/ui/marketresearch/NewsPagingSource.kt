@@ -1,10 +1,8 @@
 package io.github.c23pr487.lapakin.ui.marketresearch
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import io.github.c23pr487.lapakin.model.ArticlesItem
-import io.github.c23pr487.lapakin.model.NewsResponse
 import io.github.c23pr487.lapakin.repository.NewsApiService
 
 class NewsPagingSource(

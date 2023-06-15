@@ -12,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import io.github.c23pr487.lapakin.R
@@ -123,7 +122,7 @@ class PreferencesActivity : AppCompatActivity() {
             }
             MaterialAlertDialogBuilder(this)
                 .setMessage(getString(R.string.preference_save_message))
-                .setNegativeButton(getString(R.string.logout_negative_button)) {dialog, _ ->
+                .setNegativeButton(getString(R.string.logout_negative_button)) { dialog, _ ->
                     dialog.cancel()
                 }
                 .setPositiveButton(getString(R.string.save_buttom_message)) { dialog, _ ->
@@ -174,7 +173,13 @@ class PreferencesActivity : AppCompatActivity() {
 
         val currentUser = Firebase.auth.currentUser
 
-        return UserPreference(currentUser?.uid ?: "anonymous", label, city, subdistrict, maxPrice.toIntOrNull())
+        return UserPreference(
+            currentUser?.uid ?: "anonymous",
+            label,
+            city,
+            subdistrict,
+            maxPrice.toIntOrNull()
+        )
     }
 
     companion object {

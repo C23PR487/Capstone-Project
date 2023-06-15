@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import io.github.c23pr487.lapakin.R
@@ -54,20 +51,29 @@ class HomeFragment : Fragment() {
             val bottomSheet = FilterBottomSheetFragment().apply {
                 arguments = Bundle().apply {
                     viewModel.filterMode.value?.let { notNullFilterMode ->
-                        putInt(FilterBottomSheetFragment.EXTRA_RADIO_BUTTON_ID,
+                        putInt(
+                            FilterBottomSheetFragment.EXTRA_RADIO_BUTTON_ID,
                             notNullFilterMode
                         )
                     }
                 }
             }
             bottomSheet.show(parentFragmentManager, bottomSheet.javaClass.simpleName)
-            bottomSheet.setFragmentResultListener(FilterBottomSheetFragment.MY_REQUEST_KEY) {_, result ->
+            bottomSheet.setFragmentResultListener(FilterBottomSheetFragment.MY_REQUEST_KEY) { _, result ->
                 viewModel.changeFilterMode(result.getInt(FilterBottomSheetFragment.EXTRA_RADIO_BUTTON_ID))
-                viewModel.updateLapaks(if (Build.VERSION.SDK_INT < 33) {
-                    result.getParcelable<UserPreference>(FilterBottomSheetFragment.EXTRA_USER_PREFERENCE)
-                } else {
-                    result.getParcelable(FilterBottomSheetFragment.EXTRA_USER_PREFERENCE, UserPreference::class.java)
-                }, priors = ArrayList(result.getStringArrayList(FilterBottomSheetFragment.EXTRA_PRIORITIES) ?: ArrayList())
+                viewModel.updateLapaks(
+                    if (Build.VERSION.SDK_INT < 33) {
+                        result.getParcelable<UserPreference>(FilterBottomSheetFragment.EXTRA_USER_PREFERENCE)
+                    } else {
+                        result.getParcelable(
+                            FilterBottomSheetFragment.EXTRA_USER_PREFERENCE,
+                            UserPreference::class.java
+                        )
+                    },
+                    priors = ArrayList(
+                        result.getStringArrayList(FilterBottomSheetFragment.EXTRA_PRIORITIES)
+                            ?: ArrayList()
+                    )
                 )
             }
         }
@@ -81,10 +87,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun listenToViewModel() {
-        viewModel.isLoading.observe(viewLifecycleOwner) {isLoading ->
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.circularProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
-        viewModel.message.observe(viewLifecycleOwner) {resourceId ->
+        viewModel.message.observe(viewLifecycleOwner) { resourceId ->
             val length = when (resourceId) {
                 R.string.problem_encountered_home, R.string.no_lapak_found -> Snackbar.LENGTH_LONG
                 else -> Snackbar.LENGTH_SHORT
@@ -93,8 +99,8 @@ class HomeFragment : Fragment() {
                 Snackbar.make(binding.root, resourceId, length).show()
             }
         }
-        viewModel.lapaks.observe(viewLifecycleOwner) {lapaks ->
-            binding.recyclerView.adapter = LapakAdapter(lapaks) {id ->
+        viewModel.lapaks.observe(viewLifecycleOwner) { lapaks ->
+            binding.recyclerView.adapter = LapakAdapter(lapaks) { id ->
                 startActivity(
                     Intent(
                         binding.root.context,
@@ -103,17 +109,20 @@ class HomeFragment : Fragment() {
                 )
             }
         }
-        viewModel.filterMode.observe(viewLifecycleOwner) {filterMode ->
+        viewModel.filterMode.observe(viewLifecycleOwner) { filterMode ->
             binding.buttonFilter.text = when (filterMode) {
                 R.id.radio_button_preference -> {
                     getString(R.string.filter_preference)
                 }
+
                 R.id.radio_button_all -> {
                     getString(R.string.filter_all)
                 }
+
                 R.id.radio_button_custom -> {
                     getString(R.string.filter_custom)
                 }
+
                 else -> null
             }
         }

@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import io.github.c23pr487.lapakin.model.UserPreference

@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("/stalls/all")
-    fun getAllLapak() : Call<List<LapakCard>>
+    fun getAllLapak(): Call<List<LapakCard>>
 
     @GET("/stalls/filtered")
     fun getFilteredLapak(
@@ -23,5 +23,5 @@ interface ApiService {
     ): Call<List<LapakCard>>
 
     @GET("/stalls/{id}/details")
-    fun getLapakDetails(@Path("id") id: String) : Call<List<Lapak>>
+    fun getLapakDetails(@Path("id") id: String): Call<List<Lapak>>
 }

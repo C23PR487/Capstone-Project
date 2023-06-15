@@ -8,39 +8,38 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_filter"
+        style="@style/FilterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/recommend_text"
-        style="@style/FilterButton"
-        android:textAppearance="@style/FilterButtonTextAppearance"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/x_small_space"
         android:layout_marginStart="@dimen/medium_space"
+        android:layout_marginTop="@dimen/x_small_space"
         android:layout_marginEnd="@dimen/medium_space"
-        />
+        android:text="@string/recommend_text"
+        android:textAppearance="@style/FilterButtonTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_filter"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/small_space"
-        android:layout_marginBottom="@dimen/medium_space"/>
+        android:layout_marginBottom="@dimen/medium_space"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_filter" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/circular_progress_bar"
+        style="@style/Widget.Material3.CircularProgressIndicator.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
         app:indicatorColor="@color/primary_light_red"
-        style="@style/Widget.Material3.CircularProgressIndicator.Medium"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

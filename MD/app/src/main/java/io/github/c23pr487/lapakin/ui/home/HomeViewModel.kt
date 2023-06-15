@@ -17,7 +17,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(private val repository: LapakCardRepository, private val profileRepository: ProfileRepository) : ViewModel() {
+class HomeViewModel(
+    private val repository: LapakCardRepository,
+    private val profileRepository: ProfileRepository
+) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -35,7 +38,10 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
         updateLapaks()
     }
 
-    fun updateLapaks(userPreference: UserPreference? = null, priors: ArrayList<String> = ArrayList(listOf("kecamatan", "kota", "harga"))) {
+    fun updateLapaks(
+        userPreference: UserPreference? = null,
+        priors: ArrayList<String> = ArrayList(listOf("kecamatan", "kota", "harga"))
+    ) {
         when (_filterMode.value) {
             R.id.radio_button_preference -> getPreferenceLapak()
             R.id.radio_button_all -> getAllLapak()
@@ -46,19 +52,20 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
 
     private fun getPreferenceLapak() {
         _isLoading.value = true
-        profileRepository.getUserPreference(object: ValueEventListener {
+        profileRepository.getUserPreference(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (childSnapshot in snapshot.children) {
                         val userPreference = childSnapshot.getValue(UserPreference::class.java)
-                        val priors = listOf("kecamatan", "kota", "harga").sortedWith(compareBy(nullsLast()) {
-                            when (it) {
-                                "kecamatan" -> userPreference?.subdistrict
-                                "kota" -> userPreference?.city
-                                "label" -> userPreference?.label
-                                else -> null
-                            }
-                        })
+                        val priors =
+                            listOf("kecamatan", "kota", "harga").sortedWith(compareBy(nullsLast()) {
+                                when (it) {
+                                    "kecamatan" -> userPreference?.subdistrict
+                                    "kota" -> userPreference?.city
+                                    "label" -> userPreference?.label
+                                    else -> null
+                                }
+                            })
                         makeFilterRequestWithPreference(userPreference, ArrayList(priors))
                     }
                 }
@@ -76,7 +83,10 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
     private fun getAllLapak() {
         _isLoading.value = true
         repository.getAllLapak().enqueue(object : Callback<List<LapakCard>> {
-            override fun onResponse(call: Call<List<LapakCard>>, response: Response<List<LapakCard>>) {
+            override fun onResponse(
+                call: Call<List<LapakCard>>,
+                response: Response<List<LapakCard>>
+            ) {
                 if (!response.isSuccessful) {
                     _message.value = R.string.problem_encountered_home
                     _isLoading.value = false
@@ -103,7 +113,16 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
         })
     }
 
-    private fun makeFilterRequestWithPreference(userPreference: UserPreference?, priors: ArrayList<String> = ArrayList(listOf("kecamatan", "kota", "harga"))) {
+    private fun makeFilterRequestWithPreference(
+        userPreference: UserPreference?,
+        priors: ArrayList<String> = ArrayList(
+            listOf(
+                "kecamatan",
+                "kota",
+                "harga"
+            )
+        )
+    ) {
         repository.getFilteredLapakByPreference(
             formatLabel(userPreference?.label),
             priors[0],
@@ -113,7 +132,7 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
             priors[2],
             selectAttributeFromPrior(userPreference, priors[2]),
 
-        ).enqueue(object: Callback<List<LapakCard>> {
+            ).enqueue(object : Callback<List<LapakCard>> {
             override fun onResponse(
                 call: Call<List<LapakCard>>,
                 response: Response<List<LapakCard>>

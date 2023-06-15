@@ -21,7 +21,7 @@ object ApiConfig {
     fun getNewsApiService(): NewsApiService {
         val client = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
-            .addInterceptor {chain ->
+            .addInterceptor { chain ->
                 val request = chain.request()
                 val newRequest = request.newBuilder().addHeader(
                     "Authorization", "Bearer f627882ea9524928b63c96cb32de2721"

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +16,6 @@ import io.github.c23pr487.lapakin.databinding.FragmentMarketResearchBinding
 import io.github.c23pr487.lapakin.model.ArticlesItem
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import java.io.IOException
 
 class MarketResearchFragment : Fragment() {
@@ -55,12 +53,17 @@ class MarketResearchFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.flow.collectLatest {pagingData ->
+            viewModel.flow.collectLatest { pagingData ->
                 try {
                     binding.circularProgressBar.visibility = View.GONE
                     adapter.submitData(pagingData)
                 } catch (e: IOException) {
-                    Snackbar.make(requireContext(), binding.root, getString(R.string.end_of_list_news), Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireContext(),
+                        binding.root,
+                        getString(R.string.end_of_list_news),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     binding.circularProgressBar.visibility = View.GONE
                 }
             }

@@ -4,19 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Spannable
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.text.style.TypefaceSpan
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -26,8 +23,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.ActivityAuthenticationBinding
@@ -65,7 +60,7 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        Firebase.auth.currentUser?.let {user ->
+        Firebase.auth.currentUser?.let { user ->
             updateUI(user)
         }
 
@@ -163,7 +158,7 @@ class AuthenticationActivity : AppCompatActivity() {
     }
 
     private fun updateUI(currentUser: FirebaseUser?, newUser: Boolean = false) {
-        if (currentUser != null && !newUser){
+        if (currentUser != null && !newUser) {
             startActivity(Intent(this@AuthenticationActivity, MainActivity::class.java))
             finish()
             return
@@ -175,7 +170,12 @@ class AuthenticationActivity : AppCompatActivity() {
             return
         }
 
-        Snackbar.make(this, binding.root, getString(R.string.login_failed_message), Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            this,
+            binding.root,
+            getString(R.string.login_failed_message),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     companion object {
