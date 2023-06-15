@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="com.google.android.material.bottomSheet.BottomSheetBehavior"
     android:paddingStart="55dp"
-    android:paddingEnd="84dp"
-    android:paddingBottom="38dp"
+    android:paddingEnd="55dp"
+    android:paddingBottom="22dp"
     android:paddingTop="22dp"
     >
 
@@ -216,7 +216,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_subdistrict"
-            android:text="@string/max_price_title"
+            android:text="@string/max_price_title_normal"
             android:textAppearance="@style/Profile.FilterBottomSheet"
             app:fontFamily="@font/rubik_semi_bold"
             android:layout_marginTop="18dp"
@@ -270,6 +270,7 @@
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:layout_marginTop="25dp"
+        android:textColor="@color/primary_white"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

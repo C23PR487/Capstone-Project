@@ -16,7 +16,23 @@ import io.github.c23pr487.lapakin.repository.ProfileRepository
 
 class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() {
 
+    private val _selectedLabel = MutableLiveData<String?>()
+    val selectedLabel: LiveData<String?> = _selectedLabel
+
+    private val _selectedCity = MutableLiveData<String?>()
+    val selectedCity: LiveData<String?> = _selectedCity
+
+    private val _selectedSubdistrict = MutableLiveData<String?>()
+    val selectedSubdistrict: LiveData<String?> = _selectedSubdistrict
+
+    private val _maxPrice = MutableLiveData<Int?>()
+    val maxPrice: LiveData<Int?> = _maxPrice
+
+    private val _snackBarMessage = MutableLiveData<String>()
+    val snackBarMessage: LiveData<String> = _snackBarMessage
+
     init {
+        _selectedCity.value = null
         repository.getUserPreference(getListener())
     }
 
@@ -40,21 +56,6 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         }
 
     }
-
-    private val _selectedLabel = MutableLiveData<String?>()
-    val selectedLabel: LiveData<String?> = _selectedLabel
-
-    private val _selectedCity = MutableLiveData<String?>()
-    val selectedCity: LiveData<String?> = _selectedCity
-
-    private val _selectedSubdistrict = MutableLiveData<String?>()
-    val selectedSubdistrict: LiveData<String?> = _selectedSubdistrict
-
-    private val _maxPrice = MutableLiveData<Int?>()
-    val maxPrice: LiveData<Int?> = _maxPrice
-
-    private val _snackBarMessage = MutableLiveData<String>()
-    val snackBarMessage: LiveData<String> = _snackBarMessage
 
     fun changeLabel(label: String?) {
         if (_selectedLabel.value == label) {

@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_activity_home)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            title = resources.getString(R.string.app_name)
+            title = null
         }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
