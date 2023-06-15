@@ -159,7 +159,7 @@ class HomeViewModel(private val repository: LapakCardRepository, private val pro
         return when (label) {
             "Belum Menentukan" -> null
             "Toko Kopi" -> "toko_kopi"
-            "Usaha Makanan" -> "usaha_makanan"
+            "Usaha Baju" -> "usaha_baju"
             else -> null
 
         }.encloseWithSingleQuotes()
