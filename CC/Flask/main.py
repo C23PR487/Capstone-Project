@@ -4,7 +4,7 @@ import os
 
 from flask import Flask, request
 
-import processing
+import processing_predict
 
 
 app = Flask(__name__)
@@ -48,21 +48,18 @@ def index():
             return f"Bad Request: {msg}", 400
 
         try:
-            df_blob = processing.download_blob(data) 
-            json_data = processing.predict_blob(df_blob) 
-            processing.upload_to_db(json_data) 
-            processing.delete_blob(data) 
-            return print(f"Download, Predict, Upload dan Delete berhasil dijalankan.", 200)
+            processing_predict.get_test_url()
+            return print(f"Download, Predict, Upload dan Delete berhasil dijalankan.", 204)
 
         except Exception as e:
             print(f"error: {e}")
-            return (f"Tidak Berhasil", 500)
+            return ("", 500)
 
-    return (f"Gagal!!!", 500)
+    return ("", 500)
 
 if __name__ == "__main__":
     PORT = int(os.getenv("PORT")) if os.getenv("PORT") else 8080
 
     # This is used when running locally. Gunicorn is used to run the
     # application on Cloud Run. See entrypoint in Dockerfile.
-    app.run(host="127.0.0.1", port=PORT, debug=True)
+    app.run(host="0.0.0.0", port=PORT, debug=True)
