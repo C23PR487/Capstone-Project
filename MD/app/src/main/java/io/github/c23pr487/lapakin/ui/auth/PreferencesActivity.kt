@@ -39,7 +39,6 @@ class PreferencesActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = getString(R.string.app_name)
         fillInDropdowns()
         viewModelListen()
         setUpButtonFunctionality()

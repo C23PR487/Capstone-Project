@@ -53,5 +53,6 @@
     <string name="filter_custom">Kustom</string>
     <string name="filter_preference">Rekomendasi Untukmu</string>
     <string name="button_filter_submit">Terapkan</string>
+    <string name="max_price_title_normal">Harga Maksimum</string>
 </resources>
 
