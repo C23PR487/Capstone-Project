@@ -2,6 +2,7 @@ const { nanoid } = require('nanoid');
 const db = require('./db_config');
 
 const getTestServerHandler = () => new Promise((resolve) => {
+  console.log('Berhasil dipanggil');
   resolve({ message: 'Bisa nih aman!' });
 });
 
