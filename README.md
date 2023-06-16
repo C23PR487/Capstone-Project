@@ -34,6 +34,12 @@
 
 ## Introduction <a name="introduction"></a>
 
+The Ministry of Finance of the Republic of Indonesia reports that MSMEs employ 97% of the country's workforce, highlighting their immense potential in driving economic growth. However, starting an MSME business can be a complex and overwhelming task, and many entrepreneurs struggle to know where to start. To fully harness the potential of MSMEs and boost economic growth in Indonesia, it is essential to address these challenges and provide entrepreneurs with the necessary support and resources.
+
+Our team recognizes this challenge and is leveraging AI technology to provide location recommendations for MSMEs. By analyzing factors such as access to resources and facilities, we aim to simplify the process of starting an MSME business and increase the chances of success for new enterprises. With these location recommendations, entrepreneurs can make informed decisions about where to establish their businesses, ensuring that they have the necessary support to thrive.
+
+By empowering entrepreneurs to start and grow their MSMEs, we can create more job opportunities and contribute to Indonesia's economic development. Moreover, our approach can help to reduce barriers to entry for MSMEs, allowing entrepreneurs from diverse backgrounds to participate in the country's economy.
+
 Our application aims to facilitate users in starting their own businesses by providing a list of business stalls available for sale or rent that match their desired business type. Currently, we offer options between a coffee shop and a clothing store.
 
 ## Machine Learning <a name="machinelearning"></a>
