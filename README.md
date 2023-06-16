@@ -12,6 +12,10 @@
 
 ###### [Configuration](#configuration-1)
 
+
+
+<br>
+
 #### [2. Mobile Development](#mobiledevelopment) 
 
 ###### [Installation](#installation-2)
@@ -19,6 +23,10 @@
 ###### [Usage](#usage-2)
 
 ###### [Configuration](#configuration-2)
+
+
+
+<br>
 
 #### [3. Cloud Computing](#cloudcomputing)
 
