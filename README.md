@@ -119,7 +119,7 @@ curl -X GET $SERVICE_URL
 Make sure to replace $SERVICE_URL with the actual URL obtained from the previous step.
 
 ### Usage <a name="usage-3"></a>
-Provide examples and instructions on how to use your project. Include code snippets or command-line examples to demonstrate its functionality.
+To use the API, refer to Postman documentation https://documenter.getpostman.com/view/21912069/2s93sdYrVe
 
 ### Configuration <a name="configuration-3"></a>
 Explain any configuration options or settings that users can modify. Include relevant file paths or environment variables.
