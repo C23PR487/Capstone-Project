@@ -12,8 +12,6 @@
 
 #### [Configuration](#configuration-1)
 
-<br>
-
 ### [2. Mobile Development](#mobiledevelopment) 
 
 #### [Installation](#installation-2)
@@ -22,20 +20,17 @@
 
 #### [Configuration](#configuration-2)
 
-<br>
-
 ### [3. Cloud Computing](#cloudcomputing)
 
 #### [Installation for Hapi Server](#hapi)
 
 #### [Installation for Flask Server](#flask)
 
-<br>
-
 ### [Contributing](#contributing)
 
 ### [License](#license)
 
+<br>
 
 ## Introduction <a name="introduction"></a>
 
@@ -129,6 +124,8 @@ Provide examples and instructions on how to use your project. Include code snipp
 ### Configuration <a name="configuration-3"></a>
 Explain any configuration options or settings that users can modify. Include relevant file paths or environment variables.
 
+<br>
+
 ### Installation for Flask Server<a name="flask"></a>
 
 #### Prerequisites
@@ -136,7 +133,6 @@ Explain any configuration options or settings that users can modify. Include rel
 Git: Install Git on your local machine. You can download it from the official Git website.
 
 Google Cloud SDK: Install the Google Cloud SDK to interact with Google Cloud Platform services. Follow the instructions provided in the Google Cloud SDK documentation.
-Installation
 
 #### Installation
 To get started with the Flask server, perform the following steps:
