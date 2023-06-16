@@ -26,11 +26,9 @@
 
 #### [3. Cloud Computing](#cloudcomputing)
 
-###### [Installation](#installation-3)
+###### [Installation for Hapi Server](#hapi)
 
-###### [Usage](#usage-3)
-
-###### [Configuration](#configuration-3)
+###### [Installation for Flask Server](#flask)
 
 ### [Contributing](#contributing)
 
@@ -69,7 +67,7 @@ Explain any configuration options or settings that users can modify. Include rel
 
 ## Cloud Computing <a name="cloudcomputing"></a>
 
-### Installation <a name="installation-3"></a>
+### Installation for Hapi Server<a name="hapi"></a>
 
 #### Prerequisites
 Git: Install Git on your local machine. You can download it from the official Git website.
@@ -128,6 +126,19 @@ Provide examples and instructions on how to use your project. Include code snipp
 
 ### Configuration <a name="configuration-3"></a>
 Explain any configuration options or settings that users can modify. Include relevant file paths or environment variables.
+
+### Installation for Flask Server<a name="flask"></a>
+
+#### Prerequisites
+
+Git: Install Git on your local machine. You can download it from the official Git website.
+
+Google Cloud SDK: Install the Google Cloud SDK to interact with Google Cloud Platform services. Follow the instructions provided in the Google Cloud SDK documentation.
+Installation
+
+#### Installation
+
+<br>
 
 ## Contributing <a name="contributing"></a>
 Specify guidelines for contributing to your project. Include information on how to submit bug reports, feature requests, or pull requests.
