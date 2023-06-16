@@ -121,9 +121,6 @@ Make sure to replace $SERVICE_URL with the actual URL obtained from the previous
 ### Usage <a name="usage-3"></a>
 To use the API, refer to Postman documentation https://documenter.getpostman.com/view/21912069/2s93sdYrVe
 
-### Configuration <a name="configuration-3"></a>
-Explain any configuration options or settings that users can modify. Include relevant file paths or environment variables.
-
 <br>
 
 ### Installation for Flask Server<a name="flask"></a>
