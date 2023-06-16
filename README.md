@@ -2,11 +2,17 @@
 
 Table of Contents
 [Introduction](#introduction) 
-Installation
-Usage
-Configuration
-Contributing
-License
+
+[Installation](#installation)
+
+[Usage](#usage)
+
+[Configuration](#configuration)
+
+[Contributing](#contributing)
+
+[License](#license)
+
 
 Introduction <a name="introduction"></a>
 
