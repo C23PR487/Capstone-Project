@@ -6,7 +6,7 @@ npm install mysql
 
 #build image
 gcloud builds submit \
-  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-project
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-project 
 
 #deploy hapi backend
 gcloud run deploy hapi-server \

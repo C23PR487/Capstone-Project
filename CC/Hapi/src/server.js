@@ -13,7 +13,7 @@ const init = async () => {
   await server.start();
   console.log(`Server berjalan pada ${server.info.uri}`);
 
-  /* Connect to database */
+  /* Connecting to database */
   db.connect((err) => {
     if (err) throw err;
     console.log('Connected!');

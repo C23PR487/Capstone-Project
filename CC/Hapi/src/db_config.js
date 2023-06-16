@@ -1,9 +1,9 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: '34.101.151.214',
+  host: '34.101.39.104',
   user: 'cloud-run',
-  password: '?g+5E1JB3Gj>=5%O',
+  password: 'H-TjH[&dREl@t4])',
   database: 'db_lapakin',
 });
 
