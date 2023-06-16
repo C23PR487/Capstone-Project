@@ -2,6 +2,8 @@
 
 ## Table of Contents
 
+### [Our Team](#our-team)
+
 ### [Introduction](#introduction) 
 
 ### [1. Machine Learning](#machinelearning) 
@@ -31,6 +33,14 @@
 ### [License](#license)
 
 <br>
+
+## Our Team <a name="our-team"></a>
+- C017DSX0837 - Haoking Suryanatmaja - Institut Teknologi Bandung - Cloud Computing - active
+- C085DSX0732 - I Kadek Priyana Adi Merta - Sekolah Tinggi Manajemen Informatika dan Komputer STIKOM Indonesia - Cloud Computing - active
+- M038DSX0045 - Mohammad Fisal Aly Akbar - Institut Teknologi Sepuluh Nopember - Machine Learning - active
+- M181DSY0447 - Febi Imanuela - Universitas Indonesia - Machine Learning - active
+- A181DSX1150 - Samuel Raja Partogi Panggabean - Universitas Indonesia - Learning path - active
+- <span style="color:red">M017DSX0071 - Andhika Reyhan Soebroto - Institut Teknologi Bandung - Machine Learning - inactive</span>
 
 ## Introduction <a name="introduction"></a>
 
@@ -82,13 +92,28 @@ df_stall = pd.read_csv('<new_dataset_to_be_predicted>', encoding= 'unicode_escap
 ## Mobile Development <a name="mobiledevelopment"></a>
 
 ### Installation <a name="installation-2"></a>
-Explain how to install your project. Include any prerequisites, dependencies, or specific setup instructions.
+1. Make sure you have Android studio. You can install it through this [link](https://developer.android.com/studio).
+2. Make sure you have a Maps SDK for Android API Key that you can get through this [link](https://developers.google.com/maps/documentation/android-sdk/get-api-key)
+3. Clone the repository by running the following command in your terminal:
+```shell
+git clone https://github.com/C23PR487/Capstone-Project.git
+```
+4. Open Android Studio
+5. Click the Open Project button and select MD folder.
+6. After gradle build has finished, look for local.properties file and add this in a new line
+```shell
+MAPS_API_KEY={your api key from step 2 without the braces '{}'}
+```
 
 ### Usage <a name="usage-2"></a>
-Provide examples and instructions on how to use your project. Include code snippets or command-line examples to demonstrate its functionality.
+- To run the application in debug mode in your android studio emulator, simply press the run button
+- To get the apk itself, go to Build -> Build Bundle(s) / APK(s) -> Build APK(s)
+- You can then install the apk in your android device
 
 ### Configuration <a name="configuration-2"></a>
-Explain any configuration options or settings that users can modify. Include relevant file paths or environment variables.
+- You can go to MD/app/src/main/java/io/github/c23pr487/lapakin/repository/ApiConfig.kt and replace the news api token with your own
+- You can also replace the MD/app/google-services.json file with your own to connect to your own firebase project, however, please note to change 
+MD/app/src/main/res/values/strings.xml <database_url> and MD/app/src/main/java/io/github/c23pr487/lapakin/repository/ProfileRepository.kt url to your firebase realtime db url.
 
 <br>
 
