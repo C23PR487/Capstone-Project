@@ -17,6 +17,7 @@ import io.github.c23pr487.lapakin.databinding.ActivityLapakDetailsBinding
 import io.github.c23pr487.lapakin.model.Lapak
 import io.github.c23pr487.lapakin.utils.getLatLng
 import io.github.c23pr487.lapakin.utils.loadImageWithUrl
+import io.github.c23pr487.lapakin.utils.phoneFormat
 import io.github.c23pr487.lapakin.utils.styleLabel
 import io.github.c23pr487.lapakin.utils.toIdr
 
@@ -86,8 +87,8 @@ class LapakDetailsActivity : AppCompatActivity() {
         binding.textViewInfoBody.text =
             resources.getString(R.string.lapak_sale_info, lapak.buildingArea, lapak.address)
         binding.textViewInfoLabel.styleLabel(lapak.label, this, binding.cardViewLabel)
-        binding.textViewSellerName.text = lapak.sellerName ?: "-"
-        binding.textViewSellerPhone.text = lapak.sellerPhoneNumber ?: "-"
+        binding.textViewSellerName.text = if (lapak.sellerName == null || lapak.sellerName == "null") "-" else lapak.sellerName
+        binding.textViewSellerPhone.text = if (lapak.sellerPhoneNumber == null || lapak.sellerPhoneNumber == "null") "-" else lapak.sellerPhoneNumber.phoneFormat
 
         if (lapak.sellerName != null && lapak.sellerPhoneNumber != null && lapak.sellerName != "null" && lapak.sellerPhoneNumber != "null") {
             binding.cardViewSeller.setOnClickListener {

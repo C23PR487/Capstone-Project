@@ -111,3 +111,9 @@ fun TextView.styleLabel(label: String?, context: Context, parent: CardView) {
         }
     }
 }
+
+val String.phoneFormat get() = try {
+    if (this[0] == '8') "0$this" else this
+} catch (e: Exception) {
+    this
+}
