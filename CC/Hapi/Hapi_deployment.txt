@@ -6,11 +6,11 @@ npm install mysql
 
 #build image
 gcloud builds submit \
-  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-project 
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-server
 
 #deploy hapi backend
 gcloud run deploy hapi-server \
-  --image gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-project \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-server \
   --platform managed \
   --region asia-southeast2 \
   --memory=2Gi \
@@ -22,13 +22,3 @@ SERVICE_URL=$(gcloud beta run services describe hapi-server --platform managed -
 echo $SERVICE_URL
 
 curl -X GET $SERVICE_URL
-
-curl -X GET -H "Authorization: Bearer $(gcloud auth print-identity-token)" $SERVICE_URL
-
-#connect to cloud sql
-gcloud sql connect database-lapak --user=root
-2Q?n#GSc1oq,>c;a
-
-use databases;
-show databases;
-show tables;
