@@ -14,8 +14,6 @@
 
 
 
-<br>
-
 #### [2. Mobile Development](#mobiledevelopment) 
 
 ###### [Installation](#installation-2)
@@ -25,8 +23,6 @@
 ###### [Configuration](#configuration-2)
 
 
-
-<br>
 
 #### [3. Cloud Computing](#cloudcomputing)
 
@@ -56,6 +52,7 @@ Provide examples and instructions on how to use your project. Include code snipp
 ### Configuration <a name="configuration-1"></a>
 Explain any configuration options or settings that users can modify. Include relevant file paths or environment variables.
 
+<br>
 
 ## Mobile Development <a name="mobiledevelopment"></a>
 
@@ -68,6 +65,7 @@ Provide examples and instructions on how to use your project. Include code snipp
 ### Configuration <a name="configuration-2"></a>
 Explain any configuration options or settings that users can modify. Include relevant file paths or environment variables.
 
+<br>
 
 ## Cloud Computing <a name="cloudcomputing"></a>
 
