@@ -44,7 +44,6 @@ class LapakDetailsActivity : AppCompatActivity() {
         }
 
         listenToViewModel()
-        setShowMoreListener()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -78,6 +77,7 @@ class LapakDetailsActivity : AppCompatActivity() {
 
     private fun updateUI(lapak: Lapak) {
         binding.textViewDescriptionContent.text = lapak.description
+        setShowMoreListener()
         lapak.pictureUrl?.let {
             binding.imageViewThumbnail.loadImageWithUrl(it, this)
         }
@@ -89,7 +89,7 @@ class LapakDetailsActivity : AppCompatActivity() {
         binding.textViewSellerName.text = lapak.sellerName ?: "-"
         binding.textViewSellerPhone.text = lapak.sellerPhoneNumber ?: "-"
 
-        if (lapak.sellerName != null && lapak.sellerPhoneNumber != null) {
+        if (lapak.sellerName != null && lapak.sellerPhoneNumber != null && lapak.sellerName != "null" && lapak.sellerPhoneNumber != "null") {
             binding.cardViewSeller.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL).apply {
                     data = Uri.parse("tel:${lapak.sellerPhoneNumber}")

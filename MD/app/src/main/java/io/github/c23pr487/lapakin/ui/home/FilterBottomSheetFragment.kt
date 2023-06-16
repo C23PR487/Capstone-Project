@@ -117,7 +117,7 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
             getString(R.string.label_title),
             getString(R.string.city_title),
             getString(R.string.subdistrict_title),
-            getString(R.string.max_price_title),
+            getString(R.string.max_price_title_normal),
         )
         val adapter = ArrayAdapter(requireContext(), R.layout.popup_item, fields)
         listPopUpWindow.setAdapter(adapter)
@@ -173,7 +173,7 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
                 binding.textViewSubdistrict.setSimpleItems(subdistricts)
             }
 
-            getString(R.string.max_price_title) -> {
+            getString(R.string.max_price_title_normal) -> {
                 binding.textViewMaxPriceTitle.visibility = View.VISIBLE
                 binding.textInputLayoutMaxPrice.visibility = View.VISIBLE
             }

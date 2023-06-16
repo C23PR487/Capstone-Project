@@ -55,7 +55,7 @@ fun String?.encloseWithSingleQuotes(): String? {
 fun TextView.styleLabel(label: String?, context: Context, parent: CardView) {
     this.run {
         when (label) {
-            "usaha_baju" -> {
+            context.resources.getString(R.string.label_clothes) -> {
                 text = context.resources.getString(R.string.label_clothes)
                 parent.setCardBackgroundColor(
                     ResourcesCompat.getColor(
@@ -76,7 +76,7 @@ fun TextView.styleLabel(label: String?, context: Context, parent: CardView) {
                 )
             }
 
-            "toko_kopi" -> {
+            context.resources.getString(R.string.label_coffee) -> {
                 text = context.resources.getString(R.string.label_coffee)
                 parent.setCardBackgroundColor(
                     ResourcesCompat.getColor(

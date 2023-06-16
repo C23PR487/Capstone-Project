@@ -21,7 +21,7 @@
     <string name="logout">Keluar</string>
     <string name="label_null">Belum Menentukan</string>
     <string name="label_coffee">Toko Kopi</string>
-    <string name="label_clothes">Usaha Baju</string>
+    <string name="label_clothes">Toko Baju</string>
     <string name="city_null">Belum Menentukan</string>
     <string name="city_north_jakarta">Jakarta Utara</string>
     <string name="city_south_jakarta">Jakarta Selatan</string>
@@ -48,7 +48,7 @@
     <string name="save_buttom_message">Simpan</string>
     <string name="preference_save_message">Simpan data?</string>
     <string name="problem_encountered_home">Maaf, terjadi masalah koneksi ke server.</string>
-    <string name="no_lapak_found">Tidak ada lapak yang ditemukan</string>
+    <string name="no_lapak_found">Tidak ada lapak yang ditemukan. Mohon mencoba dengan preferensi yang lain.</string>
     <string name="filter_all">Semua</string>
     <string name="filter_custom">Kustom</string>
     <string name="filter_preference">Rekomendasi Untukmu</string>

@@ -177,9 +177,7 @@ class HomeViewModel(
     private fun formatLabel(label: String?): String? {
         return when (label) {
             "Belum Menentukan" -> null
-            "Toko Kopi" -> "toko_kopi"
-            "Usaha Baju" -> "usaha_baju"
-            else -> null
+            else -> label
 
         }.encloseWithSingleQuotes()
     }
