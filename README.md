@@ -28,10 +28,6 @@
 
 #### [Installation for Flask Server](#flask)
 
-### [Contributing](#contributing)
-
-### [License](#license)
-
 <br>
 
 ## Our Team <a name="our-team"></a>
@@ -256,11 +252,3 @@ gcloud beta pubsub subscriptions create predict-flask-sub --topic new-doc --push
 ```
 
 Make sure to replace $SERVICE_URL with the actual URL obtained from the deployment step.
-
-<br>
-
-## Contributing <a name="contributing"></a>
-Specify guidelines for contributing to your project. Include information on how to submit bug reports, feature requests, or pull requests.
-
-## License <a name="license"></a>
-State the license under which your project is released. Provide a link to the license file, if applicable.
