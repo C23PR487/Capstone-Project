@@ -20,8 +20,16 @@ fun Int.toIdr(): String {
 
 fun String.getLatLng(): LatLng? {
     val slice = this.split("3d")[1].split("!4d")
-    val lat = slice[0].toDoubleOrNull()
-    val long = slice[1].split("!")[0].toDoubleOrNull()
+    val lat = try {
+        slice[0].toDoubleOrNull()
+    } catch (e: Exception) {
+        null
+    }
+    val long = try {
+        slice[1].split("!")[0].toDoubleOrNull()
+    } catch (e: Exception) {
+        null
+    }
     if (lat == null || long == null) {
         return null
     }

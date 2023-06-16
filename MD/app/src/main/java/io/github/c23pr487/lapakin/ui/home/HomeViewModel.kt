@@ -72,7 +72,7 @@ class HomeViewModel(
             }
 
             override fun onCancelled(error: DatabaseError) {
-                _message.value = R.string.problem_encountered_home
+                _message.value = null
                 _isLoading.value = false
                 _lapaks.value = listOf()
             }
@@ -138,7 +138,7 @@ class HomeViewModel(
                 response: Response<List<LapakCard>>
             ) {
                 if (!response.isSuccessful) {
-                    _message.value = R.string.problem_encountered_home
+                    _message.value = null
                     _isLoading.value = false
                     _lapaks.value = listOf()
                     return
@@ -156,7 +156,7 @@ class HomeViewModel(
             }
 
             override fun onFailure(call: Call<List<LapakCard>>, t: Throwable) {
-                _message.value = R.string.problem_encountered_home
+                _message.value = null
                 _lapaks.value = listOf()
                 _isLoading.value = false
             }
