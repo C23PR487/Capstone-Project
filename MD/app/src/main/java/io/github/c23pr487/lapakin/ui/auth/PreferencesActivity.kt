@@ -17,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import io.github.c23pr487.lapakin.R
 import io.github.c23pr487.lapakin.databinding.ActivityPreferencesBinding
 import io.github.c23pr487.lapakin.model.UserPreference
+import io.github.c23pr487.lapakin.repository.ProfileRepository
 import io.github.c23pr487.lapakin.ui.MainActivity
 
 class PreferencesActivity : AppCompatActivity() {
@@ -37,7 +38,14 @@ class PreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        Firebase.auth.currentUser?.uid?.let {
+            reference.child("userPreference").push().setValue(UserPreference(
+                id = it
+            ))
+        }
+
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = null
         fillInDropdowns()
         viewModelListen()
         setUpButtonFunctionality()
@@ -147,7 +155,8 @@ class PreferencesActivity : AppCompatActivity() {
         val userPreference = getUserPreference()
         Log.i(TAG, userPreference.toString())
 
-        reference.child("userPreference").push().setValue(userPreference)
+        val repository = ProfileRepository(this)
+        repository.updateUserPreference(getUserPreference())
 
         startActivity(Intent(this, MainActivity::class.java))
         finish()
