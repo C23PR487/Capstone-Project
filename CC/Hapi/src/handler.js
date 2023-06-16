@@ -6,7 +6,7 @@ const getTestServerHandler = () => new Promise((resolve) => {
   resolve({ message: 'Bisa nih aman!' });
 });
 
-const dbTable = 'fake_dataset';
+const dbTable = 'lapak_lapakin';
 // Retrieve all data in database
 const getAllDataHandler = () => (
   new Promise((resolve, reject) => {
