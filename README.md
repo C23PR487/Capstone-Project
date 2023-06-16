@@ -6,29 +6,29 @@
 
 ### [1. Machine Learning](#machinelearning) 
 
-##### [Installation](#installation-1)
+#### [Installation](#installation-1)
 
-##### [Usage](#usage-1)
+#### [Usage](#usage-1)
 
-##### [Configuration](#configuration-1)
+#### [Configuration](#configuration-1)
 
 
 
 ### [2. Mobile Development](#mobiledevelopment) 
 
-##### [Installation](#installation-2)
+#### [Installation](#installation-2)
 
-##### [Usage](#usage-2)
+#### [Usage](#usage-2)
 
-##### [Configuration](#configuration-2)
+#### [Configuration](#configuration-2)
 
 
 
 ### [3. Cloud Computing](#cloudcomputing)
 
-##### [Installation for Hapi Server](#hapi)
+#### [Installation for Hapi Server](#hapi)
 
-##### [Installation for Flask Server](#flask)
+#### [Installation for Flask Server](#flask)
 
 ## [Contributing](#contributing)
 
