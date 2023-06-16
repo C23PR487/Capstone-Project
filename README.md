@@ -30,9 +30,9 @@
 
 #### [Installation for Flask Server](#flask)
 
-## [Contributing](#contributing)
+### [Contributing](#contributing)
 
-## [License](#license)
+### [License](#license)
 
 
 ## Introduction <a name="introduction"></a>
