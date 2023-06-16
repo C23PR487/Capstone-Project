@@ -1,7 +1,7 @@
 # C23-PR487's Capstone Project : LapakIn
 
 Table of Contents
-Introduction
+[Introduction](#introduction) 
 Installation
 Usage
 Configuration
