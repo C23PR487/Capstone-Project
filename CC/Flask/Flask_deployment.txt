@@ -2,11 +2,11 @@ git clone https://github.com/C23PR487/Capstone-Project.git
 
 #build image
 gcloud builds submit \
-  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/flask-project
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/flask-server
 
 #deploy ml model
 gcloud run deploy flask-server \
-  --image gcr.io/$GOOGLE_CLOUD_PROJECT/flask-project \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/flask-server \
   --platform managed \
   --region asia-southeast2 \
   --memory=2Gi \
