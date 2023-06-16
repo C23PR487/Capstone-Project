@@ -4,35 +4,35 @@
 
 ### [Introduction](#introduction) 
 
-#### [1. Machine Learning](#machinelearning) 
+### [1. Machine Learning](#machinelearning) 
 
-###### [Installation](#installation-1)
+##### [Installation](#installation-1)
 
-###### [Usage](#usage-1)
+##### [Usage](#usage-1)
 
-###### [Configuration](#configuration-1)
-
-
-
-#### [2. Mobile Development](#mobiledevelopment) 
-
-###### [Installation](#installation-2)
-
-###### [Usage](#usage-2)
-
-###### [Configuration](#configuration-2)
+##### [Configuration](#configuration-1)
 
 
 
-#### [3. Cloud Computing](#cloudcomputing)
+### [2. Mobile Development](#mobiledevelopment) 
 
-###### [Installation for Hapi Server](#hapi)
+##### [Installation](#installation-2)
 
-###### [Installation for Flask Server](#flask)
+##### [Usage](#usage-2)
 
-### [Contributing](#contributing)
+##### [Configuration](#configuration-2)
 
-### [License](#license)
+
+
+### [3. Cloud Computing](#cloudcomputing)
+
+##### [Installation for Hapi Server](#hapi)
+
+##### [Installation for Flask Server](#flask)
+
+## [Contributing](#contributing)
+
+## [License](#license)
 
 
 ## Introduction <a name="introduction"></a>
