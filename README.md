@@ -40,7 +40,9 @@
 - M038DSX0045 - Mohammad Fisal Aly Akbar - Institut Teknologi Sepuluh Nopember - Machine Learning - active
 - M181DSY0447 - Febi Imanuela - Universitas Indonesia - Machine Learning - active
 - A181DSX1150 - Samuel Raja Partogi Panggabean - Universitas Indonesia - Learning path - active
-- <span style="color:red">M017DSX0071 - Andhika Reyhan Soebroto - Institut Teknologi Bandung - Machine Learning - inactive</span>
+```diff
+- M017DSX0071 - Andhika Reyhan Soebroto - Institut Teknologi Bandung - Machine Learning - inactive
+```
 
 ## Introduction <a name="introduction"></a>
 
