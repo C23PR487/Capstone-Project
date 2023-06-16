@@ -45,14 +45,38 @@ Our application aims to facilitate users in starting their own businesses by pro
 ## Machine Learning <a name="machinelearning"></a>
 
 ### Installation <a name="installation-1"></a>
-Explain how to install your project. Include any prerequisites, dependencies, or specific setup instructions.
+1. Git:  
+- Install Git on your local machine. You can download it from the official Git website.  
+- Clone the repository by running the following command in your terminal:
+```shell
+git clone https://github.com/C23PR487/Capstone-Project.git
+```
+- Navigate to the ML folder:
+```shell
+cd Capstone-Project/ML
+```
+
+2. Google Colab:  
+- Make sure you have Google Account
+- Use Google Colab (https://colab.research.google.com/) to open `LapakIn.ipynb` notebook that you've retrieved from the cloned repository
+> The alternative to open the notebook is by using Jupyter Notebook on your local machine (https://jupyter.org/install)
 
 ### Usage <a name="usage-1"></a>
-Provide examples and instructions on how to use your project. Include code snippets or command-line examples to demonstrate its functionality.
+You can run the cells in Google Colab by choosing run option in `Runtime` menu or run a single cell by clicking the run logo at desired cell.
+
+There are several sections in the `LapakIn.ipynb` notebook that need to be ran sequentially:
+1. Section `Setup` is used for dependencies installation.
+2. Section `EDA & Preprocesing` is used for data preparation before feeding it to the model.
+3. Section `Modeling` is used for model creation.
+4. Section `Training` is used for model training on the dataset.
+5. Section `Testing` is used for model testing for evaluation.
+6. Section `Predict New Input` is used for prediction of new data. 
 
 ### Configuration <a name="configuration-1"></a>
-Explain any configuration options or settings that users can modify. Include relevant file paths or environment variables.
-
+To classify business types of available business stalls in other dataset (still with attributes of 'jumlah mall terdekat', 'jumlah kantor terdekat', 'jumlah sekolah terdekat', and target of 'label'), you can modify this code in section `Predict New Input`:
+```shell
+df_stall = pd.read_csv('<new_dataset_to_be_predicted>', encoding= 'unicode_escape')
+```
 <br>
 
 ## Mobile Development <a name="mobiledevelopment"></a>
