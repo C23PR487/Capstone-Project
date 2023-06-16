@@ -5,17 +5,19 @@ npm install nanoid@3.x.x
 npm install mysql
 
 #build image
-gcloud builds submit --tag gcr.io/lapakin/hapi
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-project
 
 #deploy hapi backend
-gcloud run deploy hapi \
-  --image gcr.io/lapakin/hapi \
+gcloud run deploy hapi-server \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-project \
   --platform managed \
   --region asia-southeast2 \
+  --memory=2Gi \
   --allow-unauthenticated \
   --max-instances=1
 
-SERVICE_URL=$(gcloud beta run services describe hapi --platform managed --region asia-southeast2 --format="value(status.url)")
+SERVICE_URL=$(gcloud beta run services describe hapi-server --platform managed --region asia-southeast2 --format="value(status.url)")
 
 echo $SERVICE_URL
 

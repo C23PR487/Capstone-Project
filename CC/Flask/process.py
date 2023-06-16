@@ -12,14 +12,8 @@ from keras.models import load_model
 import warnings
 warnings.filterwarnings("ignore")
 
-"""Back-end Endpoint to upload the predicted blob data to database"""
-base_backend_url = 'https://hapi-server-nclirhjp5q-et.a.run.app'
-
-
-def get_test_url():
-    r = requests.get(base_backend_url)
-    return r.content
-
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'test-lapakin-2-08e0cd31aa4a.json'
+base_url_backend = 'https://hapi-server-nclirhjp5q-et.a.run.app/stalls'
 
 def get_predicted_label(y_result):
     """Part of the Predict Function"""
@@ -28,7 +22,6 @@ def get_predicted_label(y_result):
     for row in range(rows):
         y_pred[row] = np.argmax(y_result[row])
     return y_pred
-
 
 def convert_to_json(df):
     """Output Predict Process"""
@@ -39,7 +32,6 @@ def convert_to_json(df):
         v = parsed[k]
         list.append(v)
     return dumps(list, indent=4)
-
 
 def predict_blob(data):
     """Main Predict Function"""
@@ -56,20 +48,17 @@ def predict_blob(data):
         get_predicted_label(y_stall).astype(int))
 
     classified_stalls_json = convert_to_json(df_stall)
-    print(classified_stalls_json)
 
-    return classified_stalls_json
+    return classified_stalls_json 
 
-
-def upload_to_db(data):
+def upload_to_db(result):
     """Upload Stalls to database through Back-end server endpoint"""
-
-    payload = data
-    r = requests.post(base_backend_url, data=payload)
-    print(r.json)
+    payload = result
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    r = requests.post(base_url_backend, data=payload, headers=headers)
+    print(r.text)
 
     return print(f"Upload berhasil dijalankan.", 200)
-
 
 def delete_blob(data):
     """Delete the blob in the bucket."""
@@ -77,6 +66,7 @@ def delete_blob(data):
     file_data = data
     bucket_name = file_data["bucket"]
     blob_name = file_data["name"]
+    
 
     storage_client = storage.Client()
 
@@ -87,12 +77,15 @@ def delete_blob(data):
     return print(f"Blob {blob_name} deleted.", 200)
 
 
+# bucket_name, source_blob_name, destination_file_name
 def process_data(data):
     """Process predict, upload and delete the blob"""
 
     file_data = data
     bucket_name = file_data["bucket"]
     source_blob_name = file_data["name"]
+    """ bucket_name = 'csv-bucket-test2'
+    source_blob_name = 'available_stalls.csv' """
 
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(bucket_name)
@@ -105,6 +98,5 @@ def process_data(data):
     json_data = predict_blob(data_blob)
 
     # Upload the blob
-    upload_to_db(json_data)
 
-    return delete_blob(data)
+    return upload_to_db(json_data)

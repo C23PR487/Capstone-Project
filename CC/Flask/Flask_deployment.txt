@@ -1,25 +1,31 @@
 git clone https://github.com/C23PR487/Capstone-Project.git
 
 #build image
-gcloud builds submit --tag gcr.io/lapakin/get-prediction
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/flask-project
 
 #deploy ml model
-gcloud run deploy get-prediction \
-  --image gcr.io/lapakin/get-prediction \
+gcloud run deploy flask-server \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/flask-project \
   --platform managed \
   --region asia-southeast2 \
-  --allow-unauthenticated \
+  --memory=2Gi \
+  --no-allow-unauthenticated \
   --max-instances=1
 
-SERVICE_URL=$(gcloud beta run services describe get-prediction --platform managed --region asia-southeast2 --format="value(status.url)")
+SERVICE_URL=$(gcloud beta run services describe flask-server --platform managed --region asia-southeast2 --format="value(status.url)")
 
-echo $SERVICE_URL
+gsutil mb gs://csv-bucket-test2
 
-curl -X GET $SERVICE_URL
+gsutil notification create -t new-doc -f json -e OBJECT_FINALIZE gs://csv-bucket-test2
 
-curl -X GET -H "Authorization: Bearer $(gcloud auth print-identity-token)" $SERVICE_URL
+gcloud iam service-accounts create pubsub-cloud-run-invoker --display-name "PubSub Cloud Run Invoker"
 
-python -m pip install  virtualenv #install virtual environment
-python -m venv env #untuk mengaktifkan environment
-Set-ExecutionPolicy Unrestricted -Scope Process #digunakan jika ada error cannot be loaded because running scripts is disabled on this system
-env\Scripts\activate #untuk menggunakan environment
+gcloud beta run services add-iam-policy-binding flask-server --member=serviceAccount:pubsub-cloud-run-invoker@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com --role=roles/run.invoker --platform managed --region asia-southeast2
+
+gcloud projects list 
+PROJECT_NUMBER=[project number]
+
+gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com --role=roles/iam.serviceAccountTokenCreator
+
+gcloud beta pubsub subscriptions create predict-flask-sub --topic new-doc --push-endpoint=$SERVICE_URL --push-auth-service-account=pubsub-cloud-run-invoker@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
