@@ -11,7 +11,7 @@ object ApiConfig {
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://hapi-fiv3monpwa-et.a.run.app")
+            .baseUrl("https://hapi-server-fiv3monpwa-et.a.run.app/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
