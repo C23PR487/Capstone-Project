@@ -82,6 +82,7 @@ git clone https://github.com/C23PR487/Capstone-Project.git
 2. Navigate to the CC/Hapi folder:
 ```shell
 cd Capstone-Project/CC/Hapi
+```
 
 3. Install the project dependencies using npm:
 ```shell
