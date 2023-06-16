@@ -12,7 +12,7 @@
 
 #### [Configuration](#configuration-1)
 
-
+<br>
 
 ### [2. Mobile Development](#mobiledevelopment) 
 
@@ -22,13 +22,15 @@
 
 #### [Configuration](#configuration-2)
 
-
+<br>
 
 ### [3. Cloud Computing](#cloudcomputing)
 
 #### [Installation for Hapi Server](#hapi)
 
 #### [Installation for Flask Server](#flask)
+
+<br>
 
 ### [Contributing](#contributing)
 
@@ -137,6 +139,73 @@ Google Cloud SDK: Install the Google Cloud SDK to interact with Google Cloud Pla
 Installation
 
 #### Installation
+To get started with the Flask server, perform the following steps:
+1. Clone the repository by running the following command in your terminal:
+```shell
+git clone https://github.com/C23PR487/Capstone-Project.git
+```
+
+2. Navigate to the CC/Flask folder:
+```shell
+cd Capstone-Project/CC/Flask
+```
+
+3. Install the project dependencies using pip:
+```shell
+pip install -r requirements.txt
+```
+
+4. To build the Docker image for the Flask server, run the following command:
+```shell
+gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/flask-server
+```
+
+5. To deploy the Flask server on Google Cloud Run, execute the following command:
+```shell
+gcloud run deploy flask-server \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/flask-server \
+  --platform managed \
+  --region asia-southeast2 \
+  --memory=2Gi \
+  --no-allow-unauthenticated \
+  --max-instances=1
+```
+
+6. Create a Cloud Storage bucket:
+```shell
+gsutil mb gs://csv-bucket-test2
+```
+
+7. Create a Cloud Pub/Sub notification:
+```shell
+gsutil notification create -t new-doc -f json -e OBJECT_FINALIZE gs://csv-bucket-test2
+```
+
+8. Create a service account for Pub/Sub Cloud Run invoker:
+```shell
+gcloud iam service-accounts create pubsub-cloud-run-invoker --display-name "PubSub Cloud Run Invoker"
+```
+
+9. Assign necessary permissions to the service account:
+```shell
+gcloud beta run services add-iam-policy-binding flask-server --member=serviceAccount:pubsub-cloud-run-invoker@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com --role=roles/run.invoker --platform managed --region asia-southeast2
+```
+
+```shell
+gcloud projects list
+PROJECT_NUMBER=[project number]
+```
+
+```shell
+gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com --role=roles/iam.serviceAccountTokenCreator
+```
+
+10. Create a Cloud Pub/Sub subscription:
+```shell
+gcloud beta pubsub subscriptions create predict-flask-sub --topic new-doc --push-endpoint=$SERVICE_URL --push-auth-service-account=pubsub-cloud-run-invoker@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
+```
+
+Make sure to replace $SERVICE_URL with the actual URL obtained from the deployment step.
 
 <br>
 
