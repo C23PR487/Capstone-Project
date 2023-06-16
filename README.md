@@ -64,7 +64,57 @@ Explain any configuration options or settings that users can modify. Include rel
 ## Cloud Computing <a name="cloudcomputing"></a>
 
 ### Installation <a name="installation-3"></a>
-Explain how to install your project. Include any prerequisites, dependencies, or specific setup instructions.
+
+#### Prerequisites
+Git: Install Git on your local machine. You can download it from the official Git website.
+
+Node.js and npm: Make sure you have Node.js and npm (Node Package Manager) installed. You can download them from the official Node.js website.
+
+Google Cloud SDK: Install the Google Cloud SDK to interact with Google Cloud Platform services. Follow the instructions provided in the Google Cloud SDK documentation.
+
+#### Installation
+To get started with the Capstone Project, perform the following steps:
+1. Clone the repository by running the following command in your terminal:
+```shell
+git clone https://github.com/C23PR487/Capstone-Project.git
+```
+
+2. Navigate to the CC/Hapi folder:
+```shell
+cd Capstone-Project/CC/Hapi
+
+3. Install the project dependencies using npm:
+```shell
+npm install
+```
+
+4. To build the Docker image for the Hapi server, run the following command:
+```shell
+gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-server
+```
+
+5. To deploy the Hapi backend on Google Cloud Run, execute the following command:
+```shell
+gcloud run deploy hapi-server \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/hapi-server \
+  --platform managed \
+  --region asia-southeast2 \
+  --memory=2Gi \
+  --allow-unauthenticated \
+  --max-instances=1
+```
+
+6. To obtain the URL for the deployed Hapi backend service, run the following commands:
+```shell
+SERVICE_URL=$(gcloud beta run services describe hapi-server --platform managed --region asia-southeast2 --format="value(status.url)")
+echo $SERVICE_URL
+```
+
+7. You can test the deployed Hapi backend service using cURL:
+```shell
+curl -X GET $SERVICE_URL
+```
+Make sure to replace $SERVICE_URL with the actual URL obtained from the previous step.
 
 ### Usage <a name="usage-3"></a>
 Provide examples and instructions on how to use your project. Include code snippets or command-line examples to demonstrate its functionality.
